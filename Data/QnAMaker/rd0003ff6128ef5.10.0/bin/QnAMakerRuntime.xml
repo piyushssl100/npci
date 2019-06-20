@@ -1,0 +1,3364 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>QnAMakerRuntime</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningHelper">
+            <summary>
+            Active learning helper class
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningHelper.DefaultMaxNumberOfClusters">
+            <summary>
+            Default MaxNumber Of Clusters
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningHelper.DefaultMaxNumberOfQueriesPerClusters">
+            <summary>
+            Default MaxNumber Of queries per cluster
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningHelper.MinimumScoreForLowScoreVariation">
+            <summary>
+            Minimum Score For Low Score Variation
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningHelper.MaximumScoreForLowScoreVariation">
+            <summary>
+            Maximum Score For Low Score Variation
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningHelper.PreviousLowScoreVariationMultiplier">
+            <summary>
+            Previous Low Score Variation Multiplier
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningHelper.MaxLowScoreVariationMultiplier">
+            <summary>
+            Max Low Score Variation Multiplier
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningHelper.MaxScoreForSingleAnswerSuggestion">
+            <summary>
+            Max Score For Single Answer Suggestion
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningHelper.GetLowScoreVariation(System.Collections.Generic.List{Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult})">
+            <summary>
+            Returns list of qnaSearch results which have low score variation
+            </summary>
+            <param name="qnaSearchResults">List of QnaSearch results</param>
+            <returns>List of filtered qnaSearch results</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningHelper.GetFeatureBasedSuggestion(System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA},System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Collections.Generic.Dictionary{System.Int32,System.Double}})">
+            <summary>
+            GetFeatureBasedSuggestion
+            </summary>
+            <param name="qnaSearchResults">qnaSearchResults</param>
+            <param name="rankerFeatures">Ranker features list</param>
+            <returns>List of filtered qnaSearch results</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningHelper.MergeQnASearchResult(System.Collections.Generic.List{Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult},System.Collections.Generic.List{Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult})">
+            <summary>
+            MergeQnASearchResult
+            </summary>
+            <param name="searchResultList1">List 1</param>
+            <param name="searchResultList2">List 2</param>
+            <returns>Returns merged list</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService">
+            <summary>
+            Active learning service
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService.activeLearningCacheData">
+            <summary>
+            Active Learning CacheData
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService.indexHelper">
+            <summary>
+            The index helper.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService.#ctor(Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService"/> class.
+            </summary>
+            <param name="indexHelper">indexHelper</param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService.EnableActiveLearning">
+            <summary>
+            EnableActiveLearning
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService.UpdateActiveLearningAutoSuggestions(System.Collections.Generic.List{Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult},System.String,System.String,System.String,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA},System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Collections.Generic.Dictionary{System.Int32,System.Double}},Microsoft.QnAMaker.Common.Constants.Enums.Language)">
+            <summary>
+            Update active learning auto suggestion cache
+            </summary>
+            <param name="searchResultList">Search results</param>
+            <param name="testKbNamespace">Test index namespace</param>
+            <param name="kbId">KbId</param>
+            <param name="query">Query</param>
+            <param name="unfilteredResult">UnfilteredResult</param>
+            <param name="rankerFeatures">Ranker feature list</param>
+            <param name="rankerLanguage">Ranker language</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService.UpdateAddedQuestionToCache(System.String,System.String,Microsoft.QnAMaker.Common.Models.Runtime.DTOs.UpdateKbRuntimeInput)">
+            <summary>
+            Update added Question To Cache
+            </summary>
+            <param name="testKbNamespace">Test kb namespace</param>
+            <param name="kbId">KbId</param>
+            <param name="updateDocument">Updatekb Runtime input</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService.UpdateActiveLearningUserSuggestions(System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.FeedbackRecordDTO},System.String,System.String)">
+            <summary>
+            Update active learning user suggestion cache
+            </summary>
+            <param name="feedbackRecords">List of feedback records</param>
+            <param name="testKbNamespace">Test index namespace</param>
+            <param name="kbId">KbId</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService.DeleteActiveLearningData(System.String)">
+            <summary>
+            Delete Active learning data
+            </summary>
+            <param name="testIndexName">Test Index name</param>
+            <returns>Status</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService.RunActiveLearningClustering">
+            <summary>
+            Active learning clustering
+            </summary>
+            <returns>True if job is successful</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.ClusteringHelper">
+            <summary>
+            Clustering
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ClusteringHelper.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.ClusteringHelper"/> class.
+            </summary>
+            <param name="language">Index language</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ClusteringHelper.GetListOfClusters(System.Collections.Concurrent.ConcurrentDictionary{System.String,Microsoft.QnAMaker.Common.Models.DTOs.AlternateQuestionDTO},Microsoft.QnAMaker.Common.RankerData.RankerData)">
+            <summary>
+            Generates list of clusters from the given list of alternateQuestion
+            </summary>
+            <param name="allAlternateQuestions">List of alternate Question</param>
+            <param name="rankerData">Ranker data</param>
+            <returns>List of clusters</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ClusteringHelper.GetSimilarityScore(System.String,System.String,Microsoft.QnAMaker.Common.RankerData.RankerData)">
+            <summary>
+            Get similarity score
+            </summary>
+            <param name="query1">Query 1</param>
+            <param name="query2">Query 2</param>
+            <param name="rankerData">Ranker data</param>
+            <returns>Return similarity score</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer">
+            <summary>
+            Connects to azure search service and implements all the required operations related to the service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer"/> class.
+            </summary>
+            <param name="searchServiceName">
+            Azure search service name.
+            </param>
+            <param name="searchServiceAdminApiKey">
+            Admin API key of azure search service
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.CreateIndex(System.String,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO},Microsoft.QnAMaker.Common.Constants.Enums.Language,System.Boolean,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.UpdateIndex(System.String,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO})">
+            <summary>
+            Creates or updates the index in azure search service.
+            </summary>
+            <param name="indexName">
+            Name of the index to be created.
+            </param>
+            <param name="qnaList">
+            List of qna.
+            </param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.IndexExists(System.String)">
+            <summary>
+             Check if index exists.
+            </summary>
+            <param name="indexName">Name of the index.</param>
+            <returns>true, if index exists.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.SearchIndex(System.String,Microsoft.Azure.Search.Models.SearchParameters,System.String)">
+            <summary>
+            Run query in azure search service and return results.
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <param name="parameters">
+            Search parameters.
+            </param>
+            <param name="query">
+            Query to be searched.
+            </param>
+            <returns>
+            Results of the search
+            </returns>
+            ToDo: Include metadata in the result.
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.RetrieveFromIndexByKey(System.String,System.String)">
+            <summary>
+            RetrieveFromIndexByKey - Retrieves a document from index given a key
+            </summary>
+            <param name="indexName"> Name of the index </param>
+            <param name="key"> Key in index whose document need to be fetched</param>
+            <returns>An object of <see cref="T:Microsoft.Azure.Search.Models.Document"/> class - with all default retrievable fields </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.UploadDocuments(System.String,System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Uploads documents to index
+            </summary>
+            <param name="indexName">
+            Name of the index to which the documents have to be uploaded.
+            </param>
+            <param name="alist">
+            Documents to be uploaded.
+            </param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.DeleteQnAs(System.String,System.Collections.Generic.IEnumerable{Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer})">
+            <summary>
+            Actually Delete given documents from index.
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <param name="qnasToDelete">
+            List of documents to be deleted
+            </param>
+            <returns>
+            Empty task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.DeleteDocuments(System.String,System.Collections.Generic.IEnumerable{Microsoft.Azure.Search.Models.Document})">
+            <summary>
+            Delete given documents from index.
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <param name="qnasToDelete">
+            List of documents to be deleted
+            </param>
+            <returns>
+            Empty task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.DeleteDocuments(System.String,System.Collections.Generic.IEnumerable{System.Object})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.DeleteIndex(System.String)">
+            <summary>
+            Deletes the index in azure search service.
+            </summary>
+            <param name="indexName">
+            Name of the index to be deleted.
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.GetIndexDefinition(System.String)">
+            <summary>
+            Get the Azure Search Index definition
+            </summary>
+            <param name="indexName">Name of the index</param>
+            <returns>Index Definition</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.GetAllSynonymMapsFromServiceClient">
+            <summary>
+            GetAllSynonymMaps from serviceClient.
+            </summary>
+            <returns>
+            List of SynonymMaps
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.UploadSynonymMap(Microsoft.Azure.Search.Models.SynonymMap)">
+            <summary>
+            Upload Synonym Map.
+            </summary>
+            <param name="synonymMap">
+            synonym Map of the index.
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.GetIndexLanguage(System.String)">
+            <summary>
+            GetIndexLanguage
+            </summary>
+            <param name="testIndexName">testIndexName</param>
+            <returns>language</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.HandleAzureSearchException(System.Exception)">
+            <summary>
+            Handle exceptions returned by azure search.
+            </summary>
+            <param name="e">
+            Azure search exception.
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.MapSynonymMapToFields(Microsoft.Azure.Search.Models.Index)">
+            <summary>
+            map synonyms with index fields
+            </summary>
+            <param name="index">index to be updated</param>
+            <returns>
+            Index with synonyms
+            </returns>
+            TODO: Provision for customizing fields
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.LanguageAnalyzerToFields(Microsoft.Azure.Search.Models.Index,Microsoft.QnAMaker.Common.Constants.Enums.Language,System.Boolean,System.String)">
+            <summary>
+            Add LanguageAnalyzer To Fields
+            </summary>
+            <param name="index">index to be updated</param>
+            <param name="language">language of the Kb</param>
+            <param name="isProd">true for prod index</param>
+            <param name="testIndexName">testIndexName</param>
+            <returns>
+            Index with Language Analyzer
+            </returns>
+            TODO: Provision for customizing fields
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchIndexer.GetIndexClient(System.String)">
+            <summary>
+            Get the index client if exist, else create it.
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <returns>
+            Index client
+            </returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeInnerErrorCode">
+            <summary>
+            Human readable error code.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.LanguageAnalyzer">
+            <summary>
+            Mapping of Language to Azure search language analyzer
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.LanguageAnalyzer.languageAnalyserMap">
+            <summary>
+            Dictionary of Mapping of Language to Azure search language analyzer
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.LanguageAnalyzer.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.LanguageAnalyzer"/> class.
+            ctor
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.LanguageAnalyzer.GetLanguage(Microsoft.Azure.Search.Models.AnalyzerName)">
+            <summary>
+            GetLanguage
+            </summary>
+            <param name="analyzerName">analyzerName</param>
+            <returns>lang</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.LanguageAnalyzer.GetAnalyzerName(Microsoft.QnAMaker.Common.Constants.Enums.Language)">
+            <summary>returns language analyzer name </summary>
+            <param name="language">language of the Kb</param>
+            <returns>Analyzer name</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage">
+            <summary>
+            Messages for runtime errors.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.IndexNotCreatedOrUpdatedException">
+            <summary>
+            Index not created or updated exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.IndexSearchException">
+            <summary>
+            Index search exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.IndexNotFoundException">
+            <summary>
+            Index not found message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.ServiceNotFoundException">
+            <summary>
+            Azure search service not found message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.IndexQuotaExceededException">
+            <summary>
+            Index quota exceeded exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.DocumentQuotaExceededException">
+            <summary>
+            Document quota exceeded exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.UploadDocumentsException">
+            <summary>
+            Upload documents exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.DeleteDocumentsException">
+            <summary>
+            Delete documents exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.DeleteIndexException">
+            <summary>
+            Delete index exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.SynonymMapDownloadException">
+            <summary>
+            Synonym map download exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.SynonymMapUploadException">
+            <summary>
+            Synonym map upload exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.ServiceInitializationFailed">
+            <summary>
+            Service initialization exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.AzureSearchThrottling">
+            <summary>
+            Azure search throttling exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.AzureSearchForbidden">
+            <summary>
+            Azure search forbidden exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.AzureSearchConflict">
+            <summary>
+            Azure search conflict exception message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.DefaultMessage">
+            <summary>
+            Default error message
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeErrorMessage.IndexRetrievalException">
+            <summary>
+            IndexRetrievalException - exception message when QnA Id given in a query could not retrieve any document from index or search service threw any exception while retrieving.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Events.EventManager">
+            <summary>
+            EventManager
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Events.EventManager.#ctor(System.String,System.String,Microsoft.QnAMaker.Common.Interfaces.ITelemetryClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Events.EventManager"/> class.
+            ctor
+            </summary>
+            <param name="id">uid of the runtime</param>
+            <param name="baseFolder">baseFolder</param>
+            <param name="telemetryClient">telemetryClient</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Events.EventManager.WriteFakeEvent(System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Events.Models.RuntimeEvent)">
+            <summary>
+            WriteFakeEvent
+            </summary>
+            <param name="fakeId">fakeId</param>
+            <param name="fakeEvent">fakeEvent</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Events.EventManager.ForceEventLoopAsync">
+            <summary>
+            ForceEventLoopAsync
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Events.EventManager.PublishEvent(System.String,System.String)">
+            <summary>
+            PublishEvent
+            </summary>
+            <param name="eventType">eventType Needs to be set</param>
+            <param name="eventData">eventData</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Events.EventManager.AddHandler(System.String,System.Action{System.String})">
+            <summary>
+            AddHandler
+            </summary>
+            <param name="eventType">eventType</param>
+            <param name="eventHandler">eventHandler</param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Events.Models.RuntimeEvent">
+            <summary>
+            RuntimeEvent
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Events.Models.RuntimeEvent.Type">
+            <summary>
+            Type
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Events.Models.RuntimeEvent.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Events.Models.RuntimeEvent.UtcTimestamp">
+            <summary>
+            Utc Time for the request
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages">
+            <summary>
+            Exception messages returned by azure search.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.AzureSearchConflict">
+            <summary>
+            Azure search conflict message.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.AzureSearchRequestFailure">
+            <summary>
+            Azure search request failure message.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.AzureSearchRequestThrottling">
+            <summary>
+            Azure search request throttling message.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.AzureSearchQueryThrottling">
+            <summary>
+            Azure search query throttling message.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.AzureSearchForbidden">
+            <summary>
+            Azure search forbidden message.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.IndexInServiceNotFoundRegex">
+            <summary>
+            Index for service not found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.IndexNotFoundRegex">
+            <summary>
+            Index not found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.ServiceNotFoundRegex">
+            <summary>
+            Service not found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.ServiceDisabledRegex">
+            <summary>
+            Azure search service disabled.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.IndexQuotaExceeded">
+            <summary>
+            Index quota exceeded.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.DocumentQuotaExceeded">
+            <summary>
+            Document quota exceeded.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.UndefinedPropertyName">
+            <summary>
+            Property name specified is not present in the index definition.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchExceptionMessages.LookupDocumentNotFound">
+            <summary>
+            Document in the Index is not found via lookup by key
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchThrottlingException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchThrottlingException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchThrottlingException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchThrottlingException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchThrottlingException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchBadStateException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchBadStateException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchBadStateException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchBadStateException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchBadStateException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchForbiddenException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchForbiddenException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchForbiddenException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchForbiddenException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchForbiddenException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchConflictException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchConflictException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchConflictException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchConflictException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.AzureSearchConflictException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DocumentQuotaExceededException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DocumentQuotaExceededException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DocumentQuotaExceededException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DocumentQuotaExceededException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DocumentQuotaExceededException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.IndexQuotaExceededException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.IndexQuotaExceededException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.IndexQuotaExceededException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.IndexQuotaExceededException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.IndexQuotaExceededException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.ReplaceSynonymMapException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.ReplaceSynonymMapException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.ReplaceSynonymMapException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.ReplaceSynonymMapException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.ReplaceSynonymMapException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DownloadSynonymMapException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DownloadSynonymMapException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DownloadSynonymMapException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DownloadSynonymMapException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DownloadSynonymMapException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.UpdateKBException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.UpdateKBException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.UpdateKBException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.UpdateKBException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.UpdateKBException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DownloadKBException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DownloadKBException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DownloadKBException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DownloadKBException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DownloadKBException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DeleteKBException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DeleteKBException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DeleteKBException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DeleteKBException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.DeleteKBException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.PublishKBException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.PublishKBException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.PublishKBException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.PublishKBException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.PublishKBException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.CreateKBException">
+            <summary>
+            Exception in create KB.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.CreateKBException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.CreateKBException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.CreateKBException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.CreateKBException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.RuntimeException">
+            <summary>
+            Documents Not Found Exception, thrown when no documents are returned by Azure Search
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.RuntimeException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.RuntimeException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.RuntimeException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Exceptions.RuntimeException"/> class.
+            </summary>
+            <param name="message"> Message of the exception </param>
+            /// <param name="innerException"> inner exception </param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.ExtensionMethods">
+            <summary>
+            Extension methods.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ExtensionMethods.GetValueOrDefault(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Gets the value of <paramref name="key"/> if the key is present and the value is of type <see cref="T:System.String"/>.
+            </summary>
+            <param name="dictionary">
+            Dictionary.
+            </param>
+            <param name="key">
+            Key to be checked.
+            </param>
+            <returns>
+            value string.
+            </returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.AzureSearchQnaIndexClient">
+            <summary>
+            Qna Index client implementation for azure search
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.AzureSearchQnaIndexClient.#ctor(Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnaRequestContext,Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper,Microsoft.QnAMaker.Common.Interfaces.ITelemetryClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.AzureSearchQnaIndexClient"/> class.
+            AzureSearchQnaIndexClient
+            </summary>
+            <param name="qnaRequestContext">qnaRequestContext</param>
+            <param name="indexHelper">indexHelper</param>
+            <param name="telemetryClient">telemetryClient</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.AzureSearchQnaIndexClient.CreateKbAsync(System.String,Microsoft.QnAMaker.Common.Models.Runtime.DTOs.CreateKbRuntimeInput)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.AzureSearchQnaIndexClient.DownloadKbAsync(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.AzureSearchQnaIndexClient.UpdateKbAsync(System.String,Microsoft.QnAMaker.Common.Models.Runtime.DTOs.UpdateKbRuntimeInput)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.AzureSearchQnaIndexClient.PublishKbAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.AzureSearchQnaIndexClient.DeleteKbAsync(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.AzureSearchQnaIndexClient.SearchIndex(Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.QnaIndexSearchRequest)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.AzureSearchQnaIndexClient.GetCandidateQnAsFromAzureSearchResults(Microsoft.Azure.Search.Models.DocumentSearchResult,System.String)">
+            <summary>
+            The get candidate qn as from azure search results.
+            </summary>
+            <param name="azureSearchResult">
+            The azure search result.
+            </param>
+            <param name="kbId">
+            Knowledge base id
+            </param>
+            <returns>
+            candidateQnAs.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.AzureSearchQnaIndexClient.GenerateSearchParameters(Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.QnaIndexSearchRequest)">
+            <summary>
+            The generate search parameters.
+            </summary>
+            <param name="qnaIndexSearchRequest">
+            qnaIndexSearchRequest.
+            </param>
+            <returns>
+            The <see cref="T:Microsoft.Azure.Search.Models.SearchParameters"/>.
+            </returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings">
+            <summary>
+            Provides a common set of settings.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings"/> class.
+            </summary>
+            <param name="settings">
+            Settings dictionary.
+            </param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.ComputerName">
+            <summary>
+            ComputerName which can be used in paths
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.SearchServiceName">
+            <summary>
+            Azure search service name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.ConfigFilesPath">
+            <summary>
+            Path to find config files.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.ConfigFilesPathOld">
+            <summary>
+            Path of config files in private extension.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.UserAppInsightsKey">
+            <summary>
+            User AppInsights Instrumentation Key.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.DefaultAnswer">
+            <summary>
+            Default message when no answer is found.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.RankerVersion">
+            <summary>
+            Ranker Version. Current supported values- V0 and V1.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.IsRefreshRuntimeConfigEnabled">
+            <summary>
+            Is Refresh Runtime Config Service enabled
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.IsMultiTenant">
+            <summary>
+            IsMultiTenant
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.UseOsearch">
+            <summary>
+            UseOsearch
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.RuntimeUrl">
+            <summary>
+            RuntimeUrl
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RuntimeSettings.RuntimePort">
+            <summary>
+            RuntimePort
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Secrets.SecretProvider">
+            <summary>
+            SecretProvider
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Secrets.SecretProvider.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.QnAMaker.Common.Telemetry.AppInsightsTelemetryClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Secrets.SecretProvider"/> class.
+            ctor
+            </summary>
+            <param name="settings">settings dict</param>
+            <param name="telemetryClient">telemetryClient</param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Secrets.SecretProvider.SearchServiceAdminApiKey">
+            <summary>
+            Azure search service admin api key.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Secrets.SecretProvider.LoadSecrets">
+            <summary>
+            Loads Secrets
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys">
+            <summary>
+            Common set of keys used for accessing settings.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.AzureWebsiteInstanceId">
+            <summary>
+            Instance Id of azure web site.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.AzureWebsiteHostName">
+            <summary>
+            Hostname of azure web site.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.AzureWebsiteHomePath">
+            <summary>
+            Azure website home path.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.AzureSearchSeviceName">
+            <summary>
+            Azure search service name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.SearchServiceAdminApiKey">
+            <summary>
+            Azure search service admin api key.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.UserAppInsightsKey">
+            <summary>
+            User AppInsights Instrumentation Key.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.DefaultAnswer">
+            <summary>
+            Default message when no answer found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.RankerVersion">
+            <summary>
+            If Ranker V1 is enabled
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.RefreshConfigUrl">
+            <summary>
+            Service Endpoint
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.PrimaryEndpointKey">
+            <summary>
+            PrimaryEndpointKey
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.ComputerNameKey">
+            <summary>
+            Computer Name
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.EnableRuntimeRefreshConfigService">
+            <summary>
+            Enable PollingService
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.IsMultiTenant">
+            <summary>
+            Enable PollingService
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.UseOsearch">
+            <summary>
+            Enable PollingService
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.UseKeyVaultForSecretsKey">
+            <summary>
+            Use KeyVault For Secrets Key
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.KeyVaultSearchServiceAdminApiKeyUrlKey">
+            <summary>
+            KeyVault SearchServiceAdminApiKey Url Key
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SettingsKeys.RuntimeCoreUrlCmdArg">
+            <summary>
+            Runtime URL commandline args pram
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.GlobalTermCountProvider">
+            <summary>
+            GlobalTermCountProvider
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.GlobalTermCountProvider.#ctor(Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService,Microsoft.QnAMaker.Common.Interfaces.ITelemetryClient,System.Collections.Generic.Dictionary{System.String,Microsoft.CognitiveServices.QnAMaker.QnARanking.Ranker},Microsoft.CognitiveServices.QnAMaker.Runtime.Events.EventManager)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.GlobalTermCountProvider"/> class.
+            ctor
+            </summary>
+            <param name="qnAMakerService">qnAMakerService</param>
+            <param name="telemetryClient">telemetryClient</param>
+            <param name="initialKbIds">initialKbIds</param>
+            <param name="eventManager">eventManager</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.GlobalTermCountProvider.GetDebugTermCountResponse">
+            <summary>
+            GetDebugTermCountResponse
+            </summary>
+            <returns>Debug Response</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.GlobalTermCountProvider.ForceTermCountRefresh(Microsoft.QnAMaker.Common.Models.DTOs.ForceTermCountRefreshDTO)">
+            <summary>
+            ForceTermCountRefresh
+            </summary>
+            <param name="forceTermCountRefreshDTO">refresh kbid DTO</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.GlobalTermCountProvider.EnqueueKbRefresh(Microsoft.QnAMaker.Common.Models.DTOs.GlobalTermCountRefreshRequest)">
+            <summary>
+            EnqueueKbRefresh
+            </summary>
+            <param name="request">request</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.GlobalTermCountProvider.GetIdfValues(System.String,System.Boolean)">
+            <summary>
+            Gets the IDF values for KB wise
+            </summary>
+            <param name="kbId">ID of the KB</param>
+            <param name="isTest">test kb</param>
+            <returns>the dictionary of words and values for each KB</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper">
+            <summary>
+            Connects to azure search service and implements all the required operation related to the service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.#ctor(Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper"/> class.
+            </summary>
+            <param name="indexer">An instance of <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer"/></param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.CreateOrUpdateIndex(System.String,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO},Microsoft.QnAMaker.Common.Constants.Enums.Language,System.Boolean,System.String)">
+            <summary>
+            Creates a new index in azure search service.
+            </summary>
+            <param name="indexName">
+            Name of the index to be created.
+            </param>
+            <param name="qnaList">
+            The QAs for which the index has to be created.
+            </param>
+            <param name="language">
+            language of the Kb
+            </param>
+            <param name="isProd">
+            true, if its prod index.
+            </param>
+            <param name="testIndexName">testIndexName</param>
+            <returns>
+            Task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.SearchIndex(System.String,Microsoft.Azure.Search.Models.SearchParameters,System.String)">
+            <summary>
+            Search for query and return results.
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <param name="parameters">
+            Search parameters.
+            </param>
+            <param name="query">
+            Query to be searched.
+            </param>
+            <returns>
+            Results of the search
+            </returns>
+            ToDo: Include metadata in the result.
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.GetDocumentByKey(System.String,System.String)">
+            <summary>
+            GetDocumentByKey - Retrieves a document in index given the key of document
+            </summary>
+            <param name="indexName">Name of the index</param>
+            <param name="key">key</param>
+            <returns>Document</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DownloadFromIndex(System.String,Microsoft.Azure.Search.Models.SearchParameters)">
+            <summary>
+            Downloads the QnAs for the given index with the search parameters .
+            </summary>
+            <param name="indexName">
+            IndexName for which the QnAs are to be downloaded.
+            </param>
+            <param name="sp">
+            Search Parameter
+            </param>
+            <returns>
+            returns list of question answers of the Kb.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.UploadDocuments(System.String,System.Collections.Generic.List{System.Object},System.Boolean)">
+            <summary>
+            Uploads documents to index
+            </summary>
+            <param name="indexName">
+            Name of the index to which the documents have to be uploaded.
+            </param>
+            <param name="qnasToIndex">
+            Documents to be uploaded.
+            </param>
+            <param name="uploadInBatches">
+            If true, it uploads the documents in batches.
+            </param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DownloadKbForPublish(System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.ChangeStatus,System.String)">
+            <summary>
+            Downloads the QnAs for the Kb.
+            </summary>
+            <param name="kbId">
+            kbId for which the QnAs are to be downloaded.
+            </param>
+            <param name="mode">
+            Update Only or Delete only
+            </param>
+            <param name="testKbNamespace">testKbNamespace</param>
+            <returns>
+            returns list of question answers of the Kb.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.GetQnAsFromQnADocuments(System.String,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO})">
+            <summary>
+            GetQnAsFromQnADocuments
+            </summary>
+            <param name="kbId">kbId</param>
+            <param name="qnaDocuments">qnaDocuments</param>
+            <returns>qnas</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DownloadKb(System.String,System.Boolean,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnaRequestContext,System.Boolean)">
+            <summary>
+            Downloads the QnAs for the Kb.
+            </summary>
+            <param name="kbId">
+            KbId for which the QnAs are to be downloaded.
+            </param>
+            <param name="isProd">
+            If test, it downloads QnAs from test kb index.
+            If prod, it downloads QnAs from kbId index.
+            </param>
+            <param name="qnaRequestContext">qnaRequestContext</param>
+            <param name="includeDelete">
+            Include QnAs with status = delete if includeDelete is true
+            </param>
+            <returns>
+            returns list of question answers of the Kb.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.GetQnADocumentsFromUpdateKb(System.String,Microsoft.QnAMaker.Common.Models.Runtime.DTOs.UpdateKbContents,System.String)">
+            <summary>
+            Get QnADocuments From UpdateKb.
+            </summary>
+            <param name="kbId">
+            Id of knowledgebase
+            </param>
+            <param name="kbDocuments">
+            List of updates in the document
+            </param>
+            <param name="testKbNamespace">testKbNamespace</param>
+            <returns>
+            QnaDocuments to be updated if successful
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DeleteQnAIndexIfExists(System.String)">
+            <summary>
+            Deletes the index.
+            </summary>
+            <param name="indexName">
+            Name of the index to be deleted.
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.IndexExists(System.String)">
+            <summary>
+            Check if index exists or not
+            </summary>
+            <param name="indexName">
+            Name of the index to be checked.
+            </param>
+            <returns>
+            Returns true if index exists
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DeleteDocuments(System.String,Microsoft.QnAMaker.Common.Models.Runtime.DTOs.DeleteKbContents,System.String)">
+            <summary>
+            Delete given documents from index.
+            </summary>
+            <param name="kbId">
+            Id of knowledgebase
+            </param>
+            <param name="deleteFromKb">
+            List of documents to be deleted
+            </param>
+            <param name="indexName">indexName</param>
+            <returns>
+            Empty task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DeleteDocuments(System.String,System.Collections.Generic.HashSet{System.Int32},System.String)">
+            <summary>
+            Delete given documents from index.
+            </summary>
+            <param name="kbId">
+            Id of knowledgebase
+            </param>
+            <param name="qnaIds">
+            List of documents Ids to be deleted
+            </param>
+            <param name="indexName">indexName</param>
+            <returns>
+            true if successful
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DeleteDocuments(System.String,System.Collections.Generic.HashSet{System.String},System.String)">
+            <summary>
+            Delete given documents from index.
+            </summary>
+            <param name="kbId">
+            Id of knowledgebase
+            </param>
+            <param name="sources">
+            List of sourcesToDownload , all documents with these sourcesToDownload should be deleted
+            </param>
+            <param name="indexName">indexName</param>
+            <returns>
+            Empty task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.SetChangeStatus(System.String,System.Collections.Generic.IList{Microsoft.Azure.Search.Models.SearchResult},Microsoft.CognitiveServices.QnAMaker.Runtime.ChangeStatus,System.String)">
+            <summary>
+            Set the ChangeStatus of documents in TestKb
+            </summary>
+            <param name="kbId">
+            kbId
+            </param>
+            <param name="searchResults">
+            List of documents to change status
+            </param>
+            <param name="changeStatus">
+            Changed status to be set
+            </param>
+            <param name="indexName">indexName</param>
+            <returns>
+            true if success
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DeleteDocuments(System.String,System.Collections.Generic.IList{Microsoft.Azure.Search.Models.SearchResult})">
+            <summary>
+            Delete given documents from index.
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <param name="searchResults">
+            List of documents to be deleted
+            </param>
+            <returns>
+            Empty task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DeleteDocuments(System.String,System.Collections.Generic.List{System.Object})">
+            <summary>
+            Delete given documents from index.
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <param name="alist">
+            List of documents to be deleted
+            </param>
+            <returns>
+            Empty task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DeleteDocumentsBulk(System.String,System.Collections.Generic.List{System.Object})">
+            <summary>
+            Delete given documents from index.
+            </summary>
+            <param name="indexName">
+            kbid-name of index
+            </param>
+            <param name="qnasToDelete">
+            List of objects to be deleted
+            </param>
+            <returns>
+            Empty task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.UploadSynonymMap(Microsoft.Azure.Search.Models.SynonymMap)">
+            <summary>
+            Upload Synonym Map.
+            </summary>
+            <param name="synonymMap">
+            synonym Map of the index.
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.GetAllSynonymMapsFromServiceClient">
+            <summary>
+            GetAllSynonymMaps from serviceClient.
+            </summary>
+            <returns>
+            List of SynonymMaps
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.GetIndexDefinition(System.String)">
+            <summary>
+            Get Azure Search Index definition
+            </summary>
+            <param name="indexName">Name of the index</param>
+            <returns>Azure search index definition</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.GetIndexLanguage(System.String)">
+            <summary>
+            GetIndexLanguage
+            </summary>
+            <param name="testIndexName">testIndexName</param>
+            <returns>Language</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DeleteDocumentsForMultiTurn(System.String,Microsoft.QnAMaker.Common.Models.Runtime.DTOs.DeleteKbContents,System.String)">
+            <summary>
+            Delete given documents from index for multiturn.
+            </summary>
+            <param name="kbId">
+            Id of knowledgebase
+            </param>
+            <param name="deleteFromKb">
+            List of documents to be deleted
+            </param>
+            <param name="indexName">indexName</param>
+            <returns>
+            Empty task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DownloadDocumentsByQnaIdsAndSources(System.String,System.String,System.Collections.Generic.HashSet{System.Int32},System.Collections.Generic.HashSet{System.String})">
+            <summary>
+            Download documents satisfying given ids and sources from index.
+            </summary>
+            <param name="kbId">
+            Id of knowledgebase
+            </param>
+            <param name="indexName">indexName</param>
+            <param name="qnaIdsToDownload">
+            List of documents Ids to be downloaded
+            </param>
+            <param name="sourcesToDownload">
+            List of sourcesToDownload to be downloaded
+            </param>
+            <returns>
+            Downloaded documents
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.GetValidatedQnasAndParentMap(System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO},System.Collections.Generic.List{Microsoft.Azure.Search.Models.Document},System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.HashSet{System.String}},System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.HashSet{System.String}})">
+            <summary>
+            Validate the prompts to QnaID Mapping.
+            </summary>
+            <param name="inputQnaList">
+            List of input qna.
+            </param>
+            <param name="downloadedQnaDocumentsFromPrompts">
+            Downloaded Qna Documents from Azure, which contain parent field.
+            </param>
+            <param name="existingQnaIdToParentMap">
+            Dictionary mapping Ids to parents , will be populated here.
+            </param>
+            <param name="qnaIdToParentsRemovedMap">
+            Dictionary Mapping qnaId To Prompts Deleted for Qna.
+            </param>
+            <returns>
+            Qnalist with Valid Prompts.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.GetObjectsWithValidParentChild(System.Collections.Generic.List{Microsoft.Azure.Search.Models.Document},System.Collections.Generic.HashSet{System.Int32},System.String)">
+            <summary>
+            Construct Objects to be uploaded to Index with Valid Parent and Child.
+            </summary>
+            <param name="documentsToUpdate">
+            DOcuments to be deleted or updated.
+            </param>
+            <param name="qnaIdsToRemove">
+            List of qna Ids to be deleted
+            </param>
+            <param name="kbId">kbid </param>
+            <returns>
+            list of objects to be uploaded to index.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.CleanAlternateQuestionClusters(Microsoft.QnAMaker.Common.Models.DTOs.QnADocumentsDTO)">
+            <summary>
+             Clear AlternateQuestionList from AlternateQuestionClusters
+             Keep only one AlternateQuestion, same as the ClusterHead
+            </summary>
+            <param name="qnaDocumentList"> QnADocumentList </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.SearchQnADocumentsInIndex(System.String,Microsoft.Azure.Search.Models.SearchParameters,System.String)">
+            <summary>
+            Run query in azure search service and return results.
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <param name="parameters">
+            Search parameters.
+            </param>
+            <param name="query">
+            Query to be searched.
+            </param>
+            <returns>
+            Results of the search
+            </returns>
+            ToDo: Include metadata in the result.
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.CheckAndConvertQnAId(System.Collections.Generic.List{Microsoft.Azure.Search.Models.Document},System.String)">
+            <summary>
+            Check if QnAId is guId+Id then convert it to Id
+            </summary>
+            <param name="documents">
+            List of documents recieved from Azure search
+            </param>
+            <param name="indexName">
+            Name of the index
+            </param>
+            <returns>Returns list of converted documents</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DeleteByIdsForMultiTurn(System.String,System.Collections.Generic.HashSet{System.Int32},System.String)">
+            <summary>
+            Delete given qnaIDs from Index with MultiTurn enabled.
+            </summary>
+            <param name="kbId">
+            Id of knowledgebase
+            </param>
+            <param name="qnaIdsToDelete">
+            List of qna Ids to be deleted
+            </param>
+            <param name="indexName">indexName</param>
+            <returns>
+            true
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.DeleteBySourcesForMultiTurn(System.String,System.Collections.Generic.HashSet{System.String},System.String)">
+            <summary>
+            Delete given documents from index with multiturn enabled.
+            </summary>
+            <param name="kbId">
+            Id of knowledgebase
+            </param>
+            <param name="sources">
+            List of sourcesToDownload , all documents with these sourcesToDownload will be deleted
+            </param>
+            <param name="indexName">indexName</param>
+            <returns>
+            True
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.GetChildParentsIdsFromDocuments(System.Collections.Generic.List{Microsoft.Azure.Search.Models.Document})">
+            <summary>
+            GetChildParentsFromDocuments
+            </summary>
+            <param name="inputDocumentsList">
+            Document List from which we GetChildAndParent Hashset
+            </param>
+            <returns>
+            Downloaded documents
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper.GetIdToParentMapForTestIndex(System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.HashSet{System.String}},System.Collections.Generic.List{Microsoft.Azure.Search.Models.Document})">
+            <summary>
+            GenerateIdToParentMap
+            </summary>
+            <param name="qnaIdToParentMapFromKb">qnaIdToParentMapFromKb</param>
+            <param name="qnaFromKb">qnaFromKb</param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry">
+            <summary>
+            Class to represent the AzureSearchRetry.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry"/> class.
+            initializes new instance of AzureSearchRetry class
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry"/> class.
+            initializes new instance of AzureSearchRetry class
+            Default constructor.
+            </summary>
+            <param name="retryCount">
+            retry count.
+            </param>
+            <param name="retryInterval">
+            retry interval.
+            </param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry.RetryCount">
+            <summary>
+            Number of retries.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry.RetryInterval">
+            <summary>
+            Number of retry intervals.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry.TryRetry(Microsoft.Azure.Search.ISearchIndexClient,Microsoft.Azure.Search.IndexBatchException,Microsoft.Azure.Search.Models.IndexBatch{System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry"/> class.
+            initializes new instance of AzureSearchRetry class
+            Default constructor.
+            </summary>
+            <param name="indexClient">
+            Index client to be used for retry.
+            </param>
+            <param name="e">
+            Exception
+            </param>
+            <param name="originalBatch">
+            Original batch.
+            </param>
+            <returns>
+            Results the task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry.TryRetryIndexBatch(Microsoft.Azure.Search.ISearchIndexClient,Microsoft.Azure.Search.IndexBatchException,Microsoft.Azure.Search.Models.IndexBatch)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry"/> class.
+            initializes new instance of AzureSearchRetry class
+            Default constructor.
+            </summary>
+            <param name="indexClient">
+            Index client to be used for retry.
+            </param>
+            <param name="e">
+            Exception
+            </param>
+            <param name="originalBatch">
+            Original batch.
+            </param>
+            <returns>
+            Results the task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry.TryRetry(Microsoft.Azure.Search.ISearchIndexClient,Microsoft.Azure.Search.IndexBatchException,Microsoft.Azure.Search.Models.IndexBatch{Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.AzureSearchRetry"/> class.
+            initializes new instance of AzureSearchRetry class
+            Default constructor.
+            </summary>
+            <param name="indexClient">
+            Index client to be used for retry.
+            </param>
+            <param name="e">
+            Exception
+            </param>
+            <param name="originalBatch">
+            Original batch.
+            </param>
+            <returns>
+            Results the task
+            </returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.ChangeStatus">
+            <summary>
+            Change state of the documents with respect to prod kb
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.KbStateNames">
+            <summary>
+            Enum containing Kb states.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants">
+            <summary>
+            contains all the constant fields.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.MetadataPrefix">
+            <summary>
+            Prefix to be added to metadata columns in index
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.DefaultAnswerWhenNotFoundInAppSettings">
+            <summary>
+            If default message is not found in the app settings, this is used as the default message.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.GenerateAnswerRoute">
+            <summary>
+            Generate answer route string
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.RuntimeControllerExceptionMessage">
+            <summary>
+            Runtime controller exception message.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.RuntimeVersion">
+            <summary>
+            Runtime Version
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.LocalhostHostname">
+            <summary>
+            Localhost Hostname
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.SuggestedQuestionMetadataName">
+            <summary>
+            Suggested Question metadata name
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.ExactMatchScore">
+            <summary>
+            ExactMatchScore - give this as score for QnAs retrieved by id
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.AzSearchNumOfRecords">
+            <summary>
+            Number of records to be expected from azure search service for a query.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.NumOfRetries">
+            <summary>
+            Number of retries for failed index requests
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.RetryInterval">
+            <summary>
+            Delay in ms between subsequent retries
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.SynonymMapFormat">
+            <summary>
+            SynonymMap Format
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.SynonymMapName">
+            <summary>
+            SynonymMap Name
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.SynonymMapFolderName">
+            <summary>
+            SynonymMapFolder Name
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.SynonymMapTempFileName">
+            <summary>
+            SynonymMapTemp File Name
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.KbIdToRankerMappingsFileName">
+            <summary>
+            Name of kbId to ranker mappings file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.RankersFolderName">
+            <summary>
+            Rankers folder
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.DelayAfterUpload">
+            <summary>
+            Delays in ms for Azure search upload, as upload take time; value is experimental
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.DelayAfterIndexUpdate">
+            <summary>
+            Delays in ms for Azure search index create or update, as index update takes time ; value is experimental
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.IdConstant">
+            <summary>
+            Delays in ms for Azure search index create or update, as index update takes time ; value is experimental
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.TestKbIndex">
+            <summary>
+            name of the test kb index to be created in azure search service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.GetTestIndexName(System.String,System.String)">
+            <summary>
+            Return TestIndex Name to use for the operation
+            </summary>
+            <param name="testKbNamespace">testKbNamespace</param>
+            <param name="kbId">kbId</param>
+            <returns>TestIndex Name</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.IsTestIndex(System.String)">
+            <summary>
+            Check if the idx name is a common test idx
+            </summary>
+            <param name="indexName">indexName</param>
+            <returns>IsTestIndex</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys">
+            <summary>
+            QnADocumentKeys - Column names in the index
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys.Questions">
+            <summary>
+            Questions
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys.Answer">
+            <summary>
+            Answer
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys.Source">
+            <summary>
+            Source
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys.Metadata">
+            <summary>
+            Metadata
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys.IsContextOnly">
+            <summary>
+            IsContextOnly
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys.Prompts">
+            <summary>
+            Prompts
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys.ParentIds">
+            <summary>
+            Parent Ids
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys.Keywords">
+            <summary>
+            Keywords
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys.AlternateQuestions">
+            <summary>
+            Alternate Questions
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys.KbId">
+            <summary>
+            kbid
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.Constants.QnADocumentKeys.ChangeStatus">
+            <summary>
+            kbid
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper">
+            <summary>
+            Interface for RankerHelper.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.KbIdToRanker">
+            <summary>
+            KbIdToRanker
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.RankersDirectory">
+            <summary>
+            Rankers Directory
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.RerankQnA(System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QueryDTO,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA},System.Collections.Generic.Dictionary{System.String,System.Double},System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Collections.Generic.Dictionary{System.Int32,System.Double}}@,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            Reranks the Question and answers
+            </summary>
+            <param name = "kbId"> Kb Id </param>
+            <param name="query">Text query</param>
+            <param name="candidateQnAs">Candidate Question And Answers</param>
+            <param name="idfValues">IDF values for each word</param>
+            <param name="allQnAsfeatureValues">Feature scores for all qnas per feature</param>
+            <param name="fuzzyWordMapping">fuzzy word mapping</param>
+            <param name = "appSettingsRankerVersion" >Ranker version from web config</param>
+            <returns>List of Candidate QnA</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.FilterRankedQnAs(System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QueryDTO,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA},System.String)">
+            <summary>
+            FilterRankedQnAs
+            </summary>
+            <param name="kbId">KbId</param>
+            <param name="query">Query</param>
+            <param name="candidateQnAs">Candidate QnAs</param>
+            <param name="appSettingsRankerVersion">Ranker version from web config</param>
+            <returns>Filtered list of candidate</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.AddRanker(System.String,System.String,System.Boolean)">
+            <summary>
+            Add ranker for the KbId.
+            </summary>
+            <param name="kbId">
+            Kb Id.
+            </param>
+            <param name="rankerFilePath">
+            Path to find the ranker file.
+            </param>
+            <param name="useOSearch">
+            useOSearch
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.UpdateSynonyms(System.Collections.Generic.List{System.String})">
+            <summary>
+            Update the synonyms.
+            </summary>
+            <param name="synonyms">List of synonyms</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.GetFuzzyQuery(System.String,System.String)">
+            <summary>
+            Add ~ to the words of the query for fuzzy search
+            </summary>
+            <param name="query">input query</param>
+            <param name="kbId">kbId</param>
+            <returns>fuzzy query</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.IsFuzzySearchOn(System.String)">
+            <summary>
+            boolean value of the fuzzy search
+            </summary>
+            <param name="kbId">kb Id</param>
+            <returns>returns true if fuzzy search is on for that kb else false</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.HasSynonyms">
+            <summary>
+            Returns whether synonyms are null or not
+            </summary>
+            <returns>bool value of synonyms presence</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.GetRankerData(System.String)">
+            <summary>
+            Get the Ranker for KbId
+            </summary>
+            <param name="kbId">knowledge base Id</param>
+            <returns>Ranker object</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.GetRankerFileName">
+            <summary>
+            Get the Ranker FileName
+            </summary>
+            <returns>Ranker object</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.GetFuzzyMapping(System.String,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            maps the words of query to highlighted words
+            </summary>
+            <param name="fuzzyQuery">query to which words are added ~</param>
+            <param name="highLightedWords">the words which are highlighted</param>
+            <param name="kbId">kbId</param>
+            <returns>mapping between the fuzzy words and highlighted words</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper.GetSynonymsDictOfRanker">
+            <summary>
+            ranker maintains its own synonyms dictionary for the synonyms fed to the azure search.
+            this is different from the synonyms map which is fed to the azure search.
+            </summary>
+            <returns>returns the synonyms dictionary of the ranker</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer">
+            <summary>
+            Interface for Indexer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.CreateIndex(System.String,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO},Microsoft.QnAMaker.Common.Constants.Enums.Language,System.Boolean,System.String)">
+            <summary>
+            Creates a new index in azure search service.
+            </summary>
+            <param name="indexName">
+            Name of the index to be created.
+            </param>
+            <param name="qnaList">
+            The QAs for which the index has to be created.
+            </param>
+            <param name="language">
+            language of the kb
+            </param>
+            <param name="isProd">
+            true, if its prod index.
+            </param>
+            <param name="testIndexName">testIndexName</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.UpdateIndex(System.String,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO})">
+            <summary>
+            Creates or updates the index in azure search service.
+            </summary>
+            <param name="indexName">
+            Name of the index to be created.
+            </param>
+            <param name="qnaList">
+            List of qna.
+            </param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.IndexExists(System.String)">
+            <summary>
+             Check if index exists.
+            </summary>
+            <param name="indexName">Name of the index.</param>
+            <returns>true, if index exists.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.SearchIndex(System.String,Microsoft.Azure.Search.Models.SearchParameters,System.String)">
+            <summary>
+            Search against query in index
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <param name="parameters">
+            Search parameters.
+            </param>
+            <param name="query">
+            Query to be searched.
+            </param>
+            <returns>
+            Results of the search
+            </returns>
+            ToDo: Include metadata in the result.
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.RetrieveFromIndexByKey(System.String,System.String)">
+            <summary>
+            RetrieveFromIndexByKey - Retrieves a document from index given a key
+            </summary>
+            <param name="indexName"> Name of the index </param>
+            <param name="key"> Key in index for which document need to be fetched</param>
+            <returns>An object of <see cref="T:Microsoft.Azure.Search.Models.Document"/> class - with all default retrievable fields </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.UploadDocuments(System.String,System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Uploads documents to index.
+            </summary>
+            <param name="indexName">
+            Name of the index to which the documents have to be uploaded.
+            </param>
+            <param name="alist">
+            Documents to be uploaded.
+            </param>
+            <returns>
+            The true if success else false <see cref="T:System.Threading.Tasks.Task"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.DeleteQnAs(System.String,System.Collections.Generic.IEnumerable{Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer})">
+            <summary>
+            Delete given documents from index.
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <param name="qnasToDelete">
+            List of documents to be deleted
+            </param>
+            <returns>
+            Empty task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.DeleteDocuments(System.String,System.Collections.Generic.IEnumerable{Microsoft.Azure.Search.Models.Document})">
+            <summary>
+            Delete given documents from index.
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <param name="searchResults">
+            List of documents to be deleted
+            </param>
+            <returns>
+            Empty task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.DeleteDocuments(System.String,System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Delete given documents from index.
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <param name="alist">
+            List of documents to be deleted
+            </param>
+            <returns>
+            Status of the task
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.DeleteIndex(System.String)">
+            <summary>
+            Delete index.
+            </summary>
+            <param name="indexName">
+            Name of the index to be deleted.
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.GetAllSynonymMapsFromServiceClient">
+            <summary>
+            GetAllSynonymMaps from serviceClient.
+            </summary>
+            <returns>
+            List of SynonymMaps
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.UploadSynonymMap(Microsoft.Azure.Search.Models.SynonymMap)">
+            <summary>
+            Upload Synonym Map.
+            </summary>
+            <param name="synonymMap">
+            synonym Map of the index.
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.GetIndexDefinition(System.String)">
+            <summary>
+            Get the Azure Search Index definition
+            </summary>
+            <param name="indexName">Name of the index</param>
+            <returns>Index Definition</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IIndexer.GetIndexLanguage(System.String)">
+            <summary>
+            GetIndexLanguage
+            </summary>
+            <param name="testIndexName">testIndexName</param>
+            <returns>language</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.DebugTermCountResponse">
+            <summary>
+            DebugTermCounts
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.DebugTermCountResponse.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.DebugTermCountResponse"/> class.
+            DebugTermCountResponse
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.DebugTermCountResponse.IdfValues">
+            <summary>
+            TermCounts
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.AzureSearchDebugInfo">
+            <summary>
+            Represents Azure Search and App debug Information
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.AzureSearchDebugInfo.IndexDefinition">
+            <summary>
+            Gets or sets Index field definition
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.AzureSearchDebugInfo.QnaCount">
+            <summary>
+            Gets or sets number of QnAs of Kbid
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.AzureSearchDebugInfo.Parameters">
+            <summary>
+            Parameters
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.AzureSearchDebugInfo.AzureSearchResult">
+            <summary>
+            AzureSearchResult
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult">
+            <summary>
+            Represents Search Result
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult.#ctor(System.Collections.Generic.List{System.String},System.String,System.Double,System.Int32,System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.MetadataDTO},Microsoft.QnAMaker.Common.Models.DTOs.ContextDTO)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult"/> class.
+            </summary>
+            <param name="questionList"> List of QnA. </param>
+            <param name="answer">List of URLs to be used for extracting Q-A.</param>
+            <param name="score">List of users </param>
+            <param name="id"> List of Ids </param>
+            <param name="source">List of sources.</param>
+            <param name="keywords">List of keywords </param>
+            <param name="metadata">List of metadata </param>
+            <param name="context">An object of <see cref="T:Microsoft.QnAMaker.Common.Models.DTOs.ContextDTO"/></param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult.Questions">
+            <summary> List of questions </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult.Answer">
+            <summary> Answer</summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult.Score">
+            <summary> Search result score</summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult.Id">
+            <summary> QnAId</summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult.Source">
+            <summary> source of QnA</summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult.Keywords">
+            <summary> List of Keywords</summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult.Metadata">
+            <summary> List of metadata</summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult.Context">
+            <summary> Context object </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResultDebugInfo">
+            <summary>
+            Represents List of Question Answers , return type of Generate Answer
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResultDebugInfo.UserQuery">
+            <summary>
+            QueryDTO given by user
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResultDebugInfo.RankerInfo">
+            <summary>
+            Ranker Debug Information
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResultDebugInfo.RuntimeVersion">
+            <summary>
+            Runtime Version
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResultDebugInfo.IndexDebugInfo">
+            <summary>
+            IndexDebugInfo
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResultList">
+            <summary>
+            Represents List of Question Answers , return type of Generate Answer
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResultList.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResultList"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResultList.#ctor(System.Collections.Generic.List{Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResultList"/> class.
+            </summary>
+            <param name="qnaSearchResultList"> List of qnaSearchResult. </param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResultList.Answers">
+            <summary>
+            List of Question Answer, result of search
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResultList.DebugInfo">
+            <summary>
+            Gets the debug information of GenerateAnswer
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo">
+            <summary>
+            Debug information of ranker
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo.SpecialFuzzyQuery">
+            <summary>
+            Gets or sets special fuzzy query
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo.Synonyms">
+            <summary>
+            Gets or sets synonyms
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo.RankerLanguage">
+            <summary>
+            Gets or sets Ranker Language
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo.RankerFileName">
+            <summary>
+            Gets or sets RankerFileName
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo.RankersDirectory">
+            <summary>
+            Folder for ranker specific data
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo.AllQnAsfeatureValues">
+            <summary>
+            Feature values per QnAId
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo.RankerVersion">
+            <summary>
+            Gets or sets ranker version
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo.RankerModelType">
+            <summary>
+            Ranker Model Type in use.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo.RankerType">
+            <summary>
+            RankerType
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo.IndexResultsCount">
+            <summary>
+            ResultsFromAzure
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.RankerDebugInfo.ReRankerResultsCount">
+            <summary>
+            ResultsAfterFiltering
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.ReplaceSynonymsOutput">
+            <summary>
+            output of Replace Synonyms
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.ReplaceSynonymsOutput.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.ReplaceSynonymsOutput"/> class.
+            </summary>
+            <param name="status">true / false</param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.ReplaceSynonymsOutput.AreSynonymsReplaced">
+            <summary>
+            list of QNA to be added to the index.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.ReplaceSynonymsInput">
+            <summary>
+            Input to Replace Synonyms
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.ReplaceSynonymsInput.#ctor(System.Collections.Generic.List{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.ReplaceSynonymsInput"/> class.
+            </summary>
+            <param name="synonyms">List of synonyms.</param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.ReplaceSynonymsInput.Synonyms">
+            <summary>
+            list of QNA to be added to the index.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd">
+            <summary>
+            Schema of the QnA document that has to be indexed in azure search.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd.#ctor(System.String,System.Collections.Generic.List{System.String},System.String,System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd"/> class.
+            </summary>
+            <param name="id">
+            Id corresponding to QnA.
+            </param>
+            <param name="questions">
+            List of questions for the answer.
+            </param>
+            <param name="answer">
+            Answer string.
+            </param>
+            <param name="source">
+            QnA source.
+            </param>
+            <param name="keywords">
+            Keywords corresponding to the QnA.
+            </param>
+            <param name="isContextOnly">
+            isContextOnly flag to mark the QnA maker
+            </param>
+            <param name="parentIds">
+            Ids of QnAs whose context has this QnA
+            </param>
+            <param name="prompts">
+            prompts - serialized json string of a list of <see cref="T:Microsoft.QnAMaker.Common.Models.DTOs.PromptDTO">PromptDTO</see> objects
+            </param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd.Id">
+            <summary>
+            Id corresponding to QnA.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd.Questions">
+            <summary>
+            List of questions for the answer.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd.Answer">
+            <summary>
+            Answer string.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd.Source">
+            <summary>
+            Source from which the QnA was extracted.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd.Keywords">
+            <summary>
+            Keywords corresponding to the QnA.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd.AlternateQuestions">
+            <summary>
+            To support train api.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd.ParentIds">
+            <summary>
+            List of strings - parent Ids for which this qna is in context
+            A QnA can have multiple parent Ids
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd.IsContextOnly">
+            <summary>
+            IsContextOnly flag to mark a QnA as being available in contextual search only
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswerProd.Prompts">
+            <summary>
+            Multi turn - Prompts that can be shown as user choices for next question
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer">
+            <summary>
+            Schema of the QnA document that has to be indexed in azure search.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.#ctor(System.String,System.String,System.String,System.Collections.Generic.List{System.String},System.String,System.String,System.Collections.Generic.List{System.String},System.String,System.Collections.Generic.List{System.String},System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer"/> class.
+            </summary>
+            <param name="kbId">
+            KbId corresponding to the KB.
+            </param>
+            <param name="key">
+            Key of the document in index which is KbId+Id.
+            </param>
+            <param name="id">
+            Id corresponding to QnA.
+            </param>
+            <param name="questions">
+            List of questions for the answer.
+            </param>
+            <param name="answer">
+            Answer string.
+            </param>
+            <param name="source">
+            QnA source.
+            </param>
+            <param name="keywords">
+            Keywords corresponding to the QnA.
+            </param>
+            <param name="alternateQuestions">
+            List of AlternateQuestion Cluster
+            </param>
+            <param name="parentIds">
+            Ids of QnAs whose context has this QnA
+            </param>
+            <param name="isContextOnly">
+            isContextOnly flag to mark the QnA maker
+            </param>
+            <param name="prompts">
+            prompts - serialized json string of a list of <see cref="T:Microsoft.QnAMaker.Common.Models.DTOs.PromptDTO">PromptDTO</see> objects
+            </param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.KbId">
+            <summary>
+            KbId corresponding to the KB.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.Key">
+            <summary>
+            Key of the document in index which is KbId+Id.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.Id">
+            <summary>
+            Id corresponding to QnA.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.Questions">
+            <summary>
+            List of questions for the answer.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.Answer">
+            <summary>
+            Answer string.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.Source">
+            <summary>
+            Source from which the QnA was extracted.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.Keywords">
+            <summary>
+            Keywords corresponding to the QnA.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.ChangeStatus">
+            <summary>
+            Flag representing change status of document
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.AlternateQuestions">
+            <summary>
+            To support train api.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.IsContextOnly">
+            <summary>
+            IsContextOnly flag to mark a QnA as being available in contextual search only
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.ParentIds">
+            <summary>
+            List of strings - parent Ids for which this qna is in context
+            A QnA can have multiple parent Ids
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QuestionAnswer.Prompts">
+            <summary>
+            Multi turn - Prompts that can be shown as user choices for next question
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.ProdIndexHelper">
+            <summary>
+            Helper to prod index
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ProdIndexHelper.GetQnAIdFromId(System.String,System.String)">
+            <summary>
+            Get QnAId from given Id
+            </summary>
+            <param name="id">Id returned from Azure Search index</param>
+            <param name="indexName">Name of the index</param>
+            <returns>Returns QnaId</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ProdIndexHelper.ConvertQnAIdToAzureDocumentId(System.String,System.Boolean,System.String)">
+            <summary>
+            Converts qnaid to azure Document id
+            </summary>
+            <param name="qnaId">Unique Id of the document</param>
+            <param name="isProdNewer">False, if prod index is in old format</param>
+            <param name="kbId">unique id of the kb</param>
+            <returns>Returns Azure Document id</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.ProdIndexHelper.CheckForProdKb(System.String)">
+            <summary>
+            Return true, if id is in the form of kbId+qnaId
+            </summary>
+            <param name="id">Azure document id</param>
+            <returns>bool</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService">
+            <summary>
+            The service which interacts with azure search.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.indexHelper">
+            <summary>
+            The index helper.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.#ctor(Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper,Microsoft.CognitiveServices.QnAMaker.Runtime.IRankerHelper,Microsoft.QnAMaker.Common.Interfaces.ITelemetryClient,System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Events.EventManager,Microsoft.CognitiveServices.QnAMaker.Runtime.EndpointSettingsManager,Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService"/> class.
+            </summary>
+            <param name="indexHelper">
+            index Helper to be used.
+            </param>
+            <param name="rankerHelper">
+            Ranker helper which does reranking.
+            </param>
+            <param name="telemetryClient">
+            Appinsights telemetry client.
+            </param>
+            <param name="defaultAnswer">
+            Default message when no answer found.
+            </param>
+            <param name="eventManager">eventManager</param>
+            <param name="endpointSettingsManager">Endpoint settings managers</param>
+            <param name="activeLearningService">Active Learning Service</param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.IndexHelper">
+            <summary>
+            IndexHelper
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.UseOsearch">
+            <summary>
+            UseOsearch
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.CreateKb(System.String,Microsoft.QnAMaker.Common.Models.Runtime.DTOs.CreateKbRuntimeInput,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnaRequestContext)">
+            <summary>
+            Creates a test index if not present and indexes QnA.
+            </summary>
+            <param name="kbId">
+            KbId of QnA.
+            </param>
+            <param name="input">
+            Contains list of QnA to be indexed.
+            </param>
+            <param name="qnaRequestContext">qnaRequestContext</param>
+            <returns>
+            empty task.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.GetIndexLanguage(System.String,System.String)">
+            <summary>
+            FetchLanguage
+            </summary>
+            <param name="testKbNamespace">testKbNamespace</param>
+            <param name="kbId">kbId</param>
+            <returns>Language</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.GenerateAnswer(System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QueryDTO,System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnaRequestContext)">
+            <summary>
+            Generates answer for the given query.
+            </summary>
+            <param name="kbId">
+            Id of the kb against which the query has to be matched.
+            </param>
+            <param name="query">
+            Query to generate answer for.
+            </param>
+            <param name="appSettingsRankerVersion">
+            Ranker Version
+            </param>
+            <param name="qnaRequestContext">qnaRequestContext</param>
+            <returns>
+            Answers to the query.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.MergeIndexResults(Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.QnaIndexSearchResult,Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.QnaIndexSearchResult)">
+            <summary>
+            MergeIndexResults
+            </summary>
+            <param name="qnaIndexSearchResult">
+            qnaIndexSearchResult
+            </param>
+            <param name="childQnaIndexSearchResult">
+            childQnaIndexSearchResult
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.UpdateFeedbackRecords(System.String,Microsoft.QnAMaker.Common.Models.DTOs.FeedbackRecordsDTO,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnaRequestContext)">
+            <summary>
+            Update feedback records
+            </summary>
+            <param name="kbId">KbId</param>
+            <param name="feedbackRecords">feedbackRecords</param>
+            <param name="qnaRequestContext">qnaRequestContext</param>
+            <returns>Return true is successful</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.PublishKb(System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnaRequestContext)">
+            <summary>
+            Moves QnAs from test Kb index to a seperate KbId index
+            </summary>
+            <param name="kbId">
+            KbId to be published.
+            </param>
+            <param name="qnaRequestContext">qnaRequestContext</param>
+            <returns>
+            Empty.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.DownloadKb(System.String,System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnaRequestContext)">
+            <summary>
+            Downloads the QnAs for the Kb.
+            </summary>
+            <param name="kbId">
+            KbId for which the QnAs are to be downloaded.
+            </param>
+            <param name="state">
+            If test, it downloads QnAs from test kb index.
+            If prod, it downloads QnAs from kbId index.
+            </param>
+            <param name="qnaRequestContext">qnaRequestContext</param>
+            <returns>
+            returns list of question answers of the Kb.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.ForceTermCountRefreshAsync(Microsoft.QnAMaker.Common.Models.DTOs.ForceTermCountRefreshDTO)">
+            <summary>
+            ForceTermCountRefresh
+            </summary>
+            <param name="forceTermCountRefreshDTO">list of kbIds to refresh</param>
+            <returns>Task</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.GetDebugTermCountResponse">
+            <summary>
+            GetDebugTermCountResponse
+            </summary>
+            <returns>debug response</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.DeleteKb(System.String,System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnaRequestContext)">
+            <summary>
+            Deletes index for prod, delete documents with given kbid for test
+             </summary>
+            <param name="kbId">
+            KbId of QnA.
+            </param>
+            <param name="state">
+            Contains state test or prod.
+            </param>
+            <param name="qnaRequestContext">qnaRequestContext</param>
+            <returns>
+            empty task.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.UpdateKb(System.String,Microsoft.QnAMaker.Common.Models.Runtime.DTOs.UpdateKbRuntimeInput,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnaRequestContext)">
+            <summary>
+            Updates testkb by adding/updating new document and deleting given documents
+             </summary>
+            <param name="kbId">
+            KbId of QnA.
+            </param>
+            <param name="updateDocument"> Contains list of qnas to be added/updated and deleted in testkb </param>
+            <param name="qnaRequestContext">qnaRequestContext</param>
+            <returns>
+            1 if success else error code
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.UpdateRanker(System.String,System.String)">
+            <summary>
+            Update Ranker for the Kb
+            </summary>
+            <param name="kbid">kbid</param>
+            <param name="rankerFileUri">rankerFileUri</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.DownloadSynonymsFromIndex">
+            <summary>
+            Download Synonym Map From Index
+            </summary>
+            <returns>Synonym Map</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.ReplaceSynonyms(System.Collections.Generic.List{System.String},Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnaRequestContext)">
+            <summary>
+            Replace Synonyms
+            </summary>
+            <param name="synonyms">
+            Synonym s
+            </param>
+            <param name="qnaRequestContext">
+            qnaRequestContext
+            </param>
+            <returns>
+            true or false
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.ActiveLearningClusteringJobAsync">
+            <summary>
+            Active learning clustering
+            </summary>
+            <returns>True if job is successful</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.CallIntegrationTestHooks(Microsoft.QnAMaker.Common.Models.Runtime.DTOs.IntegrationTestHooksDTO)">
+            <summary>
+            Call all the integration test hooks
+            </summary>
+            <param name="integrationTestHooks">integrationTestHooks</param>
+            <returns>Returns</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.IndexExists(System.String)">
+            <summary>
+            IndexExists
+            </summary>
+            <param name="indexName">indexName</param>
+            <returns>index exists</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.GetSynonymsDict">
+            <summary>
+            Gives the synonyms dictionary of the ranker
+            </summary>
+            <returns>synonyms dictionary of the ranker</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.GetIndexClient(Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnaRequestContext)">
+            <summary>
+            GetIndexClient
+            </summary>
+            <param name="ctx">ctx</param>
+            <returns>IndexClient</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.DownloadFromIndex(System.String,Microsoft.Azure.Search.Models.SearchParameters)">
+            <summary>
+            Downloads the QnAs for the given index with the search parameters .
+            </summary>
+            <param name="indexName">
+            IndexName for which the QnAs are to be downloaded.
+            </param>
+            <param name="sp">
+            Search Parameter
+            </param>
+            <returns>
+            returns list of question answers of the Kb.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.CheckAndConvertQnAId(System.Collections.Generic.List{Microsoft.Azure.Search.Models.Document},System.String)">
+            <summary>
+            Check if QnAId is guId+Id then convert it to Id
+            </summary>
+            <param name="documents">
+            List of documents recieved from Azure search
+            </param>
+            <param name="indexName">
+            Name of the index
+            </param>
+            <returns>Returns list of converted documents</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.SearchQnADocumentsInIndex(System.String,Microsoft.Azure.Search.Models.SearchParameters,System.String)">
+            <summary>
+            Run query in azure search service and return results.
+            </summary>
+            <param name="indexName">
+            Name of the index.
+            </param>
+            <param name="parameters">
+            Search parameters.
+            </param>
+            <param name="query">
+            Query to be searched.
+            </param>
+            <returns>
+            Results of the search
+            </returns>
+            ToDo: Include metadata in the result.
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService.GetDefaultSearchResult">
+            <summary>
+            Returns a default search result with default answer
+            </summary>
+            <returns>An object of <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnASearchResult"/></returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper">
+            <summary>
+            Helper class for reranking the azure search results.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper"/> class.
+            </summary>
+            <param name="configFilesPath">
+            File path where kbId to ranker mappings are stored.
+            </param>
+            <param name="configFilesPathOld">
+            Path of config files in private extension.
+            </param>
+            <param name="computerName">
+            Name of the machine this app is hosted
+            </param>
+            <param name="synonymsMap">
+            The synonyms Map.
+            </param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.RankerData">
+            <summary>
+            Ranker data
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.KbIdToRanker">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.RankersDirectory">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.AddRanker(System.String,System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.RerankQnA(System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QueryDTO,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA},System.Collections.Generic.Dictionary{System.String,System.Double},System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Collections.Generic.Dictionary{System.Int32,System.Double}}@,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.FilterRankedQnAs(System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QueryDTO,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA},System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.UpdateSynonyms(System.Collections.Generic.List{System.String})">
+            <summary>
+            The update synonyms.
+            </summary>
+            <param name="synonyms">
+            synonyms
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.HasSynonyms">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.GetFuzzyQuery(System.String,System.String)">
+            <summary>
+            Add ~ to the words of the query for fuzzy search
+            </summary>
+            <param name="query">input query</param>
+            <param name="kbId">kbId</param>
+            <returns>fuzzy query</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.IsFuzzySearchOn(System.String)">
+            <summary>
+            boolean value of the fuzzy search for this ranker
+            </summary>
+            <param name="kbId">KB Id of the knowledge base</param>
+            <returns>bool of fuzzy search for this ranker</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.GetFuzzyMapping(System.String,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            maps the words of query to highlighted words
+            </summary>
+            <param name="fuzzyQuery">query to which words are added ~</param>
+            <param name="highLightedWords">the words which are highlighted</param>
+            <param name="kbId">kbId</param>
+            <returns>mapping between the fuzzy words and highlighted words</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.GetRankerData(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.GetRankerFileName">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper.GetSynonymsDictOfRanker">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.SchedulerService">
+            <summary>
+            Scheduler Service
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.SchedulerService.#ctor(Microsoft.CognitiveServices.QnAMaker.Runtime.SchedulerService.BoolAction,Microsoft.QnAMaker.Common.Interfaces.ITelemetryClient,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.SchedulerService"/> class.
+            </summary>
+            <param name="handler"> Handler </param>
+            <param name="telemetryClient"> Telemetry client </param>
+            <param name="timerPeriodInMinutes"> Default timer period in miniutes </param>
+            <param name="failureTimerPeriodInMinutes"> Failure timer period in miniutes </param>
+            <param name="initialTimerPeriodInMinutes">initialTimerPeriodInMinutes</param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.SchedulerService.BoolAction">
+            <summary>
+            Delegate type
+            </summary>
+            <returns>bool value</returns>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.Runtime.SchedulerService.TimerPeriodInMinutes">
+            <summary>
+            TimerPeriodInMinutes
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.SynonymsHelper">
+            <summary>
+            Connects to azure search service and implements all the required operation related to the service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SynonymsHelper.SynonymsDelimiter">
+            <summary>
+            Synonyms Delimiter
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.SynonymsHelper.SynonymsFileCommentsSpecifier">
+            <summary>
+            Synonyms File Comments Specifier
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.SynonymsHelper.GetSynonymMapsCount(Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper)">
+            <summary>
+            GetSynonymMapsCount.
+            </summary>
+            <param name="indexHelper">indexHelper</param>
+            <returns>
+            No. of SynonymMaps present in the index
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.SynonymsHelper.UploadSynonymMap(Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper,Microsoft.Azure.Search.Models.SynonymMap)">
+            <summary>
+            Upload Synonym Map.
+            </summary>
+            <param name="indexHelper">index Helper</param>
+            <param name="synonymMap">
+            synonym Map of the index.
+            </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.SynonymsHelper.DownloadDefaultSynonymMap">
+            <summary>
+            Download Synonym Map.
+            </summary>
+            <returns>Synonym Map</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.SynonymsHelper.ReadSynonymMapFile(System.String)">
+            <summary>
+            ReadSynonymMap File Async
+            </summary>
+            <param name="synonymFile">synonym File</param>
+            <returns>Synonym Map</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.SynonymsHelper.GenerateSynonymMapFromSynonyms(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Generate Synonym Map From Synonyms
+            </summary>
+            <param name="lines">line s</param>
+            <returns>Synonym Map</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.SynonymsHelper.DownloadSynonymMapFromIndex(Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper)">
+            <summary>
+            Download SynonymMap From Index. This supports different synonym maps for different indexes.
+            </summary>
+            <param name="indexHelper">indexer</param>
+            <returns>Synonym Map</returns>
+            TODO: Change when Supporting custom fields
+            TODO: Returning null in case of index not found.
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.SynonymsHelper.UploadSynonymMapIfDoesNotExist(Microsoft.CognitiveServices.QnAMaker.Runtime.IndexHelper)">
+            <summary>
+            UploadSynonymMapIfDoesNotExist
+            </summary>
+            <param name="indexHelper">
+            indexHelper
+            </param>
+            <returns>
+            The <see cref="T:System.Boolean"/>.
+            </returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.TelemetryTraceMessages">
+            <summary>
+            Custom event names to be logged in application insights.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.TelemetryTraceMessages.ActiveLearningTrain">
+            <summary>
+            Active Learning Train body
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.TelemetryTraceMessages.GenerateAnswer">
+            <summary>
+            Generate answer with result.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.TelemetryTraceMessages.GenerateAnswerNotFound">
+            <summary>
+            Generate answer no answer found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.Runtime.TelemetryTraceMessages.GenerateAnswerBadRequest">
+            <summary>
+            Generate answer bad request.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.TermNormalizer">
+            <summary>
+            TermNormalizer
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.TermNormalizer.GetCounts(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            GetCounts
+            </summary>
+            <param name="text">text</param>
+            <param name="language">language</param>
+            <param name="synonyms">synonyms</param>
+            <returns>Counts</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.EndpointSettingsManager">
+            <summary>
+            Endpoint settings manager
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.EndpointSettingsManager.#ctor(System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Events.EventManager,Microsoft.CognitiveServices.QnAMaker.Runtime.ActiveLearningService,Microsoft.CognitiveServices.QnAMaker.Runtime.RankerHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.EndpointSettingsManager"/> class
+            </summary>
+            <param name="configFilesPath"> Directory path for config files </param>
+            <param name="eventManager"> Event manager </param>
+            <param name="activeLearningService">Active Learning Service</param>
+            <param name="rankerHelper">Ranker helper</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.EndpointSettingsManager.UpdateEndpointSettings(Microsoft.QnAMaker.Common.Models.DTOs.EndpointSettingsDTO)">
+            <summary>
+            Update endpoint settings and json file
+            </summary>
+            <param name="endpointSettings">new endpoint settings</param>
+            <returns> true if the update is successful </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.EndpointSettingsManager.GetEndpointSettings">
+            <summary>
+            Get endpoint settings
+            </summary>
+            <returns> Current endpoint settings</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.EndpointSettingsManager.RefreshEndpointSettings(System.Boolean)">
+            <summary>
+            Refresh endpoint settings from json file or set default if file not present
+            </summary>
+            <param name="publishEvent">True, if publish event</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.EndpointSettingsManager.SetEndpointSettings(System.String)">
+            <summary>
+            Setting endpoint settings across instances
+            </summary>
+            <param name="eventData">Event Data</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.EndpointSettingsManager.UpdateEndpointSettingsTest(Microsoft.QnAMaker.Common.Models.DTOs.EndpointSettingsDTO)">
+            <summary>
+            Update endpoint settings
+            NOTE: Only for Integeration tests
+            </summary>
+            <param name="endpointSettings">New Endpoint Settings</param>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.Utils">
+            <summary>
+            Utilities class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Utils.GetFields(System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO},System.Collections.Generic.IList{Microsoft.Azure.Search.Models.Field})">
+            <summary>
+            Gets the list of field names to be created in the index.
+            </summary>
+            <param name="qnaList">
+            List of qna.
+            </param>
+            <param name="fields">
+            Existing fields.
+            </param>
+            <returns>
+            List of fields.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Utils.GetQnaToIndexFromQnaList(System.String,System.Collections.Generic.IEnumerable{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO},System.Boolean,Microsoft.CognitiveServices.QnAMaker.Runtime.ChangeStatus,System.Boolean,System.Boolean,System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.HashSet{System.String}})">
+            <summary>
+            Get list of QnADocument objects From list of QnADocuments
+            </summary>
+            <param name="kbId">
+            KbId
+            </param>
+            <param name="qnaList">
+            List of QnADocuemnts
+            </param>
+            <param name="isProd">
+            true for prod index.
+            </param>
+            <param name="changeStatus">
+            The change status Update, NoChange or Delete
+            </param>
+            <param name="isProdNewer">
+            true if prod's id is kbId + qnaId
+            </param>
+            <param name="restoreChangeStatus">
+            Use previous change state
+            </param>
+            <param name="existingQnaIdToParentMap">
+            Contains existing QnaId to Parent Mappings.
+            </param>
+            <returns>
+            List of objects.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Utils.GetQnAsFromAzureSearchResults(System.Collections.Generic.List{Microsoft.Azure.Search.Models.Document})">
+            <summary>
+            Get QnADocuments From Azure Search Results
+            </summary>
+            <param name="searchResults">
+            List of Azure Search documents.
+            </param>
+            <returns>
+            List of QnADocuments.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Utils.GetQnAFromDocument(Microsoft.Azure.Search.Models.Document)">
+            <summary>
+            GetQnAFromDocument - serializes and deserializes by Keys
+            </summary>
+            <param name="document">document</param>
+            <returns>An object of <see cref="T:Microsoft.QnAMaker.Common.Models.DTOs.QnADTO"/></returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Utils.GetQnaToDeleteFromQnaList(System.String,System.Collections.Generic.IEnumerable{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO},System.Boolean,Microsoft.CognitiveServices.QnAMaker.Runtime.ChangeStatus,System.Boolean)">
+            <summary>
+            Get list of QnADocument objects From list of QnADocuments
+            </summary>
+            <param name="kbId">
+            KbId
+            </param>
+            <param name="qnaList">
+            List of QnADocuemnts
+            </param>
+            <param name="isProd">
+            true for prod index.
+            </param>
+            <param name="changeStatus">
+            The change status Update, NoChange or Delete
+            </param>
+            <param name="isProdNewer">
+            true if prod's id is kbId + qnaId
+            </param>
+            <returns>
+            List of objects.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Utils.GetFields(System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO},System.Boolean)">
+            <summary>
+            Gets the list of field names to be created in the index.
+            </summary>
+            <param name="qnaList">
+            List of qna.
+            </param>
+            <param name="isProd">
+            true for prod index.
+            </param>
+            <returns>
+            List of fields.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Utils.GetKeyString(System.String,System.Int32)">
+            <summary>
+            GetKeyString -
+                index has kbid + id as the key
+            </summary>
+            <param name="kbId">kbId</param>
+            <param name="id">QnA Id </param>
+            <returns>Key string based in whether query is to test or prod index</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Utils.GetQnaIdsInPrompts(System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO})">
+            <summary>
+             Gets all qna Ids has HashSet that are inside Prompts.
+            </summary>
+            <param name= "qnaList" > Lis of Qna</param>
+            <returns> HashSet of qna ids that are inside prompts </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Utils.GetQnaIdToRemovedParentsMap(System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.DTOs.UpdateQnaDTO})">
+            <summary>
+            Get QnaId To Removed Parents Map.
+            </summary>
+            <param name="updateQnaList">
+            List of updateQnaDto.
+            </param>
+            <returns>
+            Map with qna Id as Key and deleted parents for that qna as values.
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.Utils.GetParentIdsMap(System.Collections.Generic.IEnumerable{Microsoft.QnAMaker.Common.Models.DTOs.QnADTO},System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.HashSet{System.String}})">
+            <summary>
+            GetParentIds - Given a set of QnADTOs, computes parentIds of all child QnAs
+            </summary>
+            <param name="qnaList">qnaList</param>
+            <param name="qnaIdToParentMapFromKb">
+            Map that contain existing parents that have been assigned to the given id.
+            </param>
+            <returns>A dictionary of ids mapped to corresponding list of parent Ids</returns>
+        </member>
+    </members>
+</doc>

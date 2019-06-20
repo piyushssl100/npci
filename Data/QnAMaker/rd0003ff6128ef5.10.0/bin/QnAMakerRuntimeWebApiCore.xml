@@ -1,0 +1,559 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>QnAMakerRuntimeWebApiCore</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.Handler.ActiveLearningClusteringServiceHandler">
+            <summary>
+            Active learning polling handler
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Handler.ActiveLearningClusteringServiceHandler.#ctor(Microsoft.QnAMaker.Common.Telemetry.AppInsightsTelemetryClient,Microsoft.CognitiveServices.QnAMaker.Runtime.QnAMakerService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.Handler.ActiveLearningClusteringServiceHandler"/> class.
+            </summary>
+            <param name="telemetryClient">Telemetry client</param>
+            <param name="qnamakerService">QnA Maker Service</param>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.Handler.RuntimeConfigHandler">
+            <summary>
+            Class to refresh data from service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Handler.RuntimeConfigHandler.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},Microsoft.QnAMaker.Common.Telemetry.AppInsightsTelemetryClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.Handler.RuntimeConfigHandler"/> class.
+            </summary>
+            <param name="settings">Runtime config settings</param>
+            <param name="telemetryClient">Telemetry client</param>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Handler.RuntimeConfigHandler.GetRuntimeMetrics">
+            <summary>
+            Convert ConcurrentDictionary into Dictionary to be used in DTO.
+            </summary>
+            <returns> RuntimeMetricsDTO </returns>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.Handler.DataCleanupHandler">
+            <summary>
+            Class to cleanup stale instance data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Handler.DataCleanupHandler.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.QnAMaker.Common.Interfaces.ITelemetryClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.Handler.DataCleanupHandler"/> class.
+            </summary>
+            <param name="configuration">Configuration</param>
+            <param name="telemetryClient">Telemetry client</param>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Handler.DataCleanupHandler.CleanupStaleData">
+            <summary>
+            CleanupStaleData
+            </summary>
+            <returns> True </returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Handler.DataCleanupHandler.WriteFakeHeartbeat(System.String)">
+            <summary>
+            WriteFakeHeartBeat
+            </summary>
+            <param name="timeStamp">timeStamp</param>
+            <returns>Written heartbeat file</returns>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.Helper.QnAMakerServiceClient">
+            <summary>
+            Defines call to QnAMaker service to get RuntimeConfig
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Helper.QnAMakerServiceClient.#ctor(Microsoft.QnAMaker.Common.Telemetry.AppInsightsTelemetryClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.Helper.QnAMakerServiceClient"/> class.
+            </summary>
+            <param name="telemetryClient">An instance of <see cref="T:Microsoft.QnAMaker.Common.Telemetry.AppInsightsTelemetryClient"/></param>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Helper.QnAMakerServiceClient.GetRuntimeConfigAsync(System.String,Microsoft.QnAMaker.Common.Models.DTOs.RuntimeConfigRequestDTO,System.Threading.CancellationToken)">
+            <summary>
+            Gets latest runtime config from service
+            </summary>
+            <param name="endpointUri">Service endpoint Uri</param>
+            <param name="runtimeConfigRequestDTO">An instance of <see cref="T:Microsoft.QnAMaker.Common.Models.DTOs.RuntimeConfigRequestDTO"/></param>
+            <param name="cancellationToken">cancellationToken</param>
+            <returns>A instance of <see cref="T:Microsoft.QnAMaker.Common.Models.DTOs.RuntimeConfigResponseDTO"/></returns>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointKeysController">
+            <summary>
+            Defines actions to manage a KB in azure search.
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointKeysController.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointKeysController"/> class.
+            </summary>
+            <param name="configuration">configuration</param>
+        </member>
+        <member name="P:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointKeysController.Configuration">
+            <summary>
+            Gets Configuration
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointKeysController.SetEndpointKeys(Microsoft.QnAMaker.Common.Models.DTOs.EndpointKeysDTO)">
+            <summary>
+            SetEndpointKeys in Application Config
+            </summary>
+            <param name="endpointKeys">endpointKeys object with primary and secondary endpointkeys</param>
+            <returns>HttpResponseMessage with status code OK if keys get updated successfuly</returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointKeysController.GetEndpointKeys">
+            <summary>
+            Get Endpoint keys
+            </summary>
+            <returns>HttpResponseMessage with status code OK with endpoint keys DTO</returns>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointSettingsController">
+            <summary>
+            Defines actions to manage endpoint settings.
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointSettingsController.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointSettingsController"/> class.
+            </summary>
+            <param name="configuration">configuration</param>
+        </member>
+        <member name="P:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointSettingsController.Configuration">
+            <summary>
+            Gets Configuration
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointSettingsController.UpdateEndpointSettings(Microsoft.QnAMaker.Common.Models.DTOs.EndpointSettingsDTO)">
+            <summary>
+            Update endpoint settings for the runtime
+            </summary>
+            <param name="endpointSettings">Endpoint settings object</param>
+            <returns>HttpResponseMessage with status code OK if endpoint settings get updated successfully</returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointSettingsController.GetEndpointSettings">
+            <summary>
+            Get endpoint setting of the runtime
+            </summary>
+            <returns>HttpResponseMessage with status code OK with EndpointSettingsDTO</returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.EndpointSettingsController.GetEndpointAppConfig">
+            <summary>
+            Get endpoint setting of the runtime
+            </summary>
+            <returns>HttpResponseMessage with status code OK and appconfig</returns>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.Controllers.CoreHealthStatusController">
+            <summary>
+            HealthStatus Controller.
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.CoreHealthStatusController.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.Controllers.CoreHealthStatusController"/> class.
+            </summary>
+            <param name="configuration">configuration</param>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.CoreHealthStatusController.HealthStatusCheck">
+            <summary>
+            Is Runtime Loaded
+            </summary>
+            <returns>HttpResponseMessage with status code OK if runtime is loaded</returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.CoreHealthStatusController.TryInitRuntime">
+            <summary>
+            Try to initialze runtime and return any exception that was thrown
+            </summary>
+            <returns>Exceptions thrown while trying to init runtime</returns>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController">
+            <summary>
+            Defines actions to manage a KB in azure search.
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.QnAMakerRuntimeWebApi.Handler.DataCleanupHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController"/> class.
+            </summary>
+            <param name="configuration">configuration</param>
+            <param name="dataCleanupHandler">dataCleanupHandler</param>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.CreateKb(System.String,Microsoft.QnAMaker.Common.Models.Runtime.DTOs.CreateKbRuntimeInput)">
+            <summary>
+            Creates a KB by indexing it in test kb index.
+            </summary>
+            <param name="kbId">
+            Id corresponding to the KB.
+            </param>
+            <param name="input">
+            Input which contains list of QnA to be indexed.
+            </param>
+            <returns>
+            Empty.
+            </returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.PublishKb(System.String)">
+            <summary>
+            creates a prob Kb index from the QnAs in test Kb index.
+            </summary>
+            <param name="kbId">
+            Id corresponding to the KB.
+            </param>
+            <returns>
+            Empty task.
+            </returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.GenerateAnswer(System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QueryDTO)">
+            <summary>
+            Returns the answer from Kb for the given query.
+            </summary>
+            <param name="kbId">
+            Id corresponding to the KB.
+            </param>
+            <param name="query">
+            Query containing question and other details required to fetch answer from the Kb.
+            </param>
+            <returns>
+            Returns 200 aand list of QnAs if matching QnAs are found.
+            Returns 204 if no results are found.
+            Returns 400 if its a bad request.
+            </returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.ActiveLearningTrain(System.String,Microsoft.QnAMaker.Common.Models.DTOs.FeedbackRecordsDTO)">
+            <summary>
+            Updates the feedback from the user.
+            </summary>
+            <param name="kbId">
+            Id corresponding to the KB.
+            </param>
+            <param name="feedbackRecords">
+            Feedback records
+            </param>
+            <returns>
+            Returns 200 aand list of QnAs if matching QnAs are found.
+            Returns 204 if no results are found.
+            Returns 400 if its a bad request.
+            </returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.DownloadKb(System.String,System.String)">
+            <summary>
+            Download Kb.
+            </summary>
+            <param name="kbId">
+            Id corresponding to the KB.
+            </param>
+            <param name="state">
+            State of Kb, IsTest or Prod.
+            </param>
+            <returns>
+            Returns 200 aand list of QnAs if matching QnAs are found.
+            Returns 204 if no results are found.
+            Returns 400 if its a bad request.
+            </returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.DownloadSynonyms">
+            <summary>
+            Download Synonyms.
+            </summary>
+            <returns>
+            Returns 200 if synonym map is found.
+            Returns 404 if no synonym maps is found.
+            </returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.ReplaceSynonyms(Microsoft.CognitiveServices.QnAMaker.Runtime.Models.ReplaceSynonymsInput)">
+            <summary>
+            Replace Kb in test.
+            </summary>
+            <param name="synonyms">
+            List of synonyms to be replaced.
+            </param>
+            <returns>
+            Returns 200 aand list of QnAs if matching QnAs are found.
+            Returns 204 if no results are found.
+            Returns 400 if its a bad request.
+            </returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.DeleteKb(System.String,System.String)">
+            <summary>
+            Deletes Kb.
+            </summary>
+            <param name="kbId">
+            Id corresponding to the KB.
+            </param>
+            <param name="state">
+            State of Kb, IsTest or Prod.
+            </param>
+            <returns>
+            Returns Task
+            </returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.UpdateKb(System.String,Microsoft.QnAMaker.Common.Models.Runtime.DTOs.UpdateKbRuntimeInput)">
+            <summary>
+            Updates Kb.
+            </summary>
+            <param name="kbId">
+            Id corresponding to the KB.
+            </param>
+            <param name="updateDocument">
+            Contains list of qnas to be added/updated and deleted in testkb
+            </param>
+            <returns>
+            Returns 200 aand list of QnAs if matching QnAs are found.
+            Returns 204 if no results are found.
+            Returns 400 if its a bad request.
+            </returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.UpdateRankerAsync(Microsoft.QnAMaker.Common.Models.DTOs.RankerMapDTO)">
+            <summary>
+            SetEndpointKeys in Application Config
+            </summary>
+            <param name="rankerMapDto">RankerMap which has kbid and rankerfile Uri</param>
+            <returns>HttpResponseMessage with status code OK if keys get updated successfuly</returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.DebugTermCounts">
+            <summary>
+            DebugTermCounts
+            </summary>
+            <returns>DebugTerm Counts </returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.ForceTermCountRefresh(Microsoft.QnAMaker.Common.Models.DTOs.ForceTermCountRefreshDTO)">
+            <summary>
+            DebugTermCounts
+            </summary>
+            <param name="refreshKbIdDTO">Refresh kbId DTO contains that kbIds that needs to be counted</param>
+            <returns>DebugTerm Counts </returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.ForceEventLoop">
+            <summary>
+            ForceEventLoop
+            </summary>
+            <returns>Done</returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.IntegrationTestHook(Microsoft.QnAMaker.Common.Models.Runtime.DTOs.IntegrationTestHooksDTO)">
+            <summary>
+            Calls all the forced operations from integration tests
+            </summary>
+            <param name="integrationTestHooksDTO">integration Test Hooks DTO</param>
+            <returns>Return status</returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Controllers.QnAMakerRuntimeController.WriteFakeEvent(System.String,Microsoft.CognitiveServices.QnAMaker.Runtime.Events.Models.RuntimeEvent)">
+            <summary>
+            WriteFakeEvent
+            </summary>
+            <param name="fakeId">fakeId</param>
+            <param name="fakeEvent">fakeEvent</param>
+            <returns>done</returns>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.EPAuthorizationFilter">
+            <summary>
+            EPAuthorizationFilter
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.EPAuthorizationFilter.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.EPAuthorizationFilter"/> class.
+            EPAuthorizationFilter
+            </summary>
+            <param name="configuration">configuration</param>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.EPAuthorizationFilter.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            OnActionExecuted
+            </summary>
+            <param name="context">context</param>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.EPAuthorizationFilter.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>Calls when an action is being authorized.</summary>
+            <param name="actionContext">The context.</param>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.EPAuthorizationFilter.IsRequestAuthorized(Microsoft.AspNetCore.Http.IHeaderDictionary)">
+            <summary>
+            IsRequestAuthorized helper
+            </summary>
+            <param name="headers">headers</param>
+            <returns>boolean value</returns>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.EPAuthorizeAttribute">
+            <summary>
+            Marker Attribute for EPAuthorize
+            This class serves as name of the attribute to be used to apply KAuthorizationFilter on Controller actions.
+            As suggested in one of the top answers in StackOverflow question below
+            https://stackoverflow.com/questions/18406506/custom-filter-attributes-inject-dependency
+            </summary>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices">
+            <summary>
+            Base static controller
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices"/> class.
+            </summary>
+            <param name="configuration">configuration</param>
+        </member>
+        <member name="P:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices.Configuration">
+            <summary>
+            Gets Configuration
+            </summary>
+        </member>
+        <member name="P:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices.EventManager">
+            <summary>
+            Gets Event Manager
+            </summary>
+        </member>
+        <member name="P:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices.TelemetryClient">
+            <summary>
+            Gets application insight telemetry
+            </summary>
+        </member>
+        <member name="P:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices.QnamakerService">
+            <summary>
+            Gets qnamaker service
+            </summary>
+        </member>
+        <member name="P:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices.RuntimeSettings">
+            <summary>
+            Gets runtimeSettings
+            </summary>
+        </member>
+        <member name="P:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices.EndpointSettingsManager">
+            <summary>
+            Gets endpointSettingsHandler
+            </summary>
+        </member>
+        <member name="P:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices.ActiveLearningClusteringServiceHandler">
+            <summary>
+            Gets activeLearningClusteringServiceHandler
+            </summary>
+        </member>
+        <member name="P:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices.RuntimeConfigHandler">
+            <summary>
+            Gets runtimeConfigHandler
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices.GetInstance(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Gets Base Controller class instance
+            </summary>
+            <param name="configuration">configuration</param>
+            <returns>Instance of RuntimeServices</returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices.InitializeRuntimeService">
+            <summary>
+            Initializes static members of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.Services.RuntimeServices"/> class.
+            Function to initilize controller data
+            </summary>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.EpKeysManager">
+            <summary>
+            EndpointKeysManager
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.EpKeysManager.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.EpKeysManager"/> class.
+            </summary>
+            <param name="configuration">appsettings configuration</param>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.EpKeysManager.SetEndpointKeys(Microsoft.QnAMaker.Common.Models.DTOs.EndpointKeysDTO)">
+            <summary>
+            SetEndpointKeys with new access keys
+            </summary>
+            <param name="endpointKeys">endpointKeys with new Primary and Secondary keys</param>
+            <returns>true if the update is proper, taking care of primary and secondary exclusive update</returns>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.EpKeysManager.GetEndpointKeys">
+            <summary>
+            GetEndpointKeys - reads and returns EndpointKeys from xml
+            </summary>
+            <returns>true if the update is proper, taking care of primary and secondary exclusive update</returns>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.Program">
+            <summary>
+            Program.
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Program.Main(System.String[])">
+            <summary>
+            Main
+            </summary>
+            <param name="args">args</param>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.SettingsManager">
+            <summary>
+            Provides default settings.
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.SettingsManager.GetSettings(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            returns settings dictionary using application settings.
+            </summary>
+            <param name="configuration">appsettings configuration</param>
+            <returns>A fully initialized settings dictionary.</returns>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApi.Startup">
+            <summary>
+            Startup
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApi.Startup"/> class.
+            </summary>
+            <param name="configuration">configuration</param>
+        </member>
+        <member name="P:Microsoft.QnAMakerRuntimeWebApi.Startup.StartupTime">
+            <summary>
+            Startup time for the core process, Used for status tracking
+            </summary>
+        </member>
+        <member name="P:Microsoft.QnAMakerRuntimeWebApi.Startup.Configuration">
+            <summary>
+            Gets Configuration
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services">services</param>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app">app</param>
+            <param name="env">env</param>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApiCore.Extensions.ExceptionMiddlewareExtensions">
+            <summary>
+            Custom Middleware
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApiCore.Extensions.ExceptionMiddlewareExtensions.ConfigureCustomExceptionMiddleware(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configure custom middleware
+            </summary>
+            <param name="app">app</param>
+        </member>
+        <member name="T:Microsoft.QnAMakerRuntimeWebApiCore.Middleware.ExceptionMiddleware">
+            <summary>
+            RuntimeExceptionMiddleware
+            </summary>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApiCore.Middleware.ExceptionMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.QnAMakerRuntimeWebApiCore.Middleware.ExceptionMiddleware"/> class.
+            </summary>
+            <param name="next">RequestDelegate</param>
+        </member>
+        <member name="M:Microsoft.QnAMakerRuntimeWebApiCore.Middleware.ExceptionMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Invoke
+            </summary>
+            <param name="httpContext">httpContext</param>
+            <returns>httpContext execution result</returns>
+        </member>
+    </members>
+</doc>

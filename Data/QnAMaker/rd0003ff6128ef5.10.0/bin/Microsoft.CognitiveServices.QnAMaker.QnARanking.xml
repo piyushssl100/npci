@@ -1,0 +1,1242 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.CognitiveServices.QnAMaker.QnARanking</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.ContextualFeature">
+            <summary>
+            Derived features based on context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.ContextualFeature.GetFeatureValues(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData)">
+            <summary>
+            All the contextual features. Where the feature value depends on previous query or qna.
+            </summary>
+            <param name="queryData"> The queryData includes the query text and the candidate QnAs.</param>
+            <returns> The feature values for all contextual features.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.DSSMFeature">
+            <summary>
+            DSSM features
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.DSSMFeature.GetFeatureValues(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData,Microsoft.QnAMaker.Common.RankerData.RankerData)">
+            <summary>
+            DSSM features
+            </summary>
+            <param name="queryData">Query Data</param>
+            <param name="rankerData">Ranking Data</param>
+            <returns>Feature vector</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.AzureSearchFeature">
+            <summary>
+            Derived features based on Azure Search scores.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.AzureSearchFeature.GetFeatureValues(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData)">
+            <summary>
+            Derived features from Azure Search scores.
+                totalScore = Sum of Azure Search scores for all QnA
+                AzureSearchNormalizedScore(QnA) = AzureSearchScore(QnA)/totalScore
+                AzureSearchSuppressionScore(QnA) = 1 if AzureSearchScore(QnA) is less than 0.1 else 0.
+            </summary>
+            <param name="queryData"> The queryData includes the query text and the candidate QnAs.</param>
+            <returns> The feature values for all Azure Search derived features.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.IFeature">
+            <summary>
+            Interface for QnA ranking features.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.IQnAFeature">
+            <summary>
+            Interface for QnA ranking features which are dependent on the input query and language only.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.IQnAFeature.GetFeatureValues(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData)">
+            <summary>
+            Gets the feature vector given the query data.
+            </summary>
+            <param name="queryData">Instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData"/> class.</param>
+            <returns>The feature vector.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.IDataDependentFeature">
+            <summary>
+            Interface for QnA ranking features which are dependent on additional ranking data along with the input query and language.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.IDataDependentFeature.GetFeatureValues(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData,Microsoft.QnAMaker.Common.RankerData.RankerData)">
+            <summary>
+            Gets the feature vector give the query data and supporting ranking data.
+            </summary>
+            <param name="queryData">Instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData"/> class.</param>
+            <param name="rankerData">Instance of the <see cref="T:Microsoft.QnAMaker.Common.RankerData.RankerData"/> class.</param>
+            <returns>The feature vector.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.TfIdfLocalFeature">
+            <summary>
+            Computes the TFIDF features values
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.TfIdfLocalFeature.Microsoft#CognitiveServices#QnAMaker#QnARanking#Features#IDataDependentFeature#GetFeatureValues(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData,Microsoft.QnAMaker.Common.RankerData.RankerData)">
+            <summary>
+            The get feature values.
+            </summary>
+            <param name="queryData">
+            The query data.
+            </param>
+            <param name="rankerData">
+            The ranking data.
+            </param>
+            <returns>
+            The tfidf features.
+            </returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.TfIdfFeature">
+            <summary>
+            Computes the TFIDF features values
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.TfIdfFeature.Microsoft#CognitiveServices#QnAMaker#QnARanking#Features#IDataDependentFeature#GetFeatureValues(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData,Microsoft.QnAMaker.Common.RankerData.RankerData)">
+            <summary>
+            The get feature values.
+            </summary>
+            <param name="queryData">
+            The query data.
+            </param>
+            <param name="rankerData">
+            The ranking data.
+            </param>
+            <returns>
+            The tfidf features.
+            </returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.WordNetFeature">
+            <summary>
+            Features derived from word net data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.WordNetFeature.GetFeatureValues(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData,Microsoft.QnAMaker.Common.RankerData.RankerData)">
+            <summary>
+            Get word net based feature vector.
+            </summary>
+            <param name="queryData">Query Data</param>
+            <param name="rankerData">Ranking Data</param>
+            <returns>Feature vector</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.WordNetFeature.FilterCandidates(System.Collections.Generic.Dictionary{System.Int32,System.Double},System.Double,System.Collections.Generic.Dictionary{System.Int32,System.Double}@)">
+            <summary>
+            Filter candidate
+            </summary>
+            <param name="wordnetDict">Wordnet dict</param>
+            <param name="alpha">Alpha</param>
+            <param name="flagDictionary">Flag dictionary</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Features.WordNetFeature.GetWordnetFeatures(Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA,System.Collections.Generic.HashSet{System.String},System.String[],Microsoft.QnAMaker.Common.Constants.Enums.Language,Microsoft.QnAMaker.Common.RankerData.RankerData,System.Double,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.String,System.Double}},System.Boolean)">
+            <summary>
+            Wordnet features
+            </summary>
+            <param name="qna">Candidate qnas</param>
+            <param name="stopwords">Stopword list</param>
+            <param name="queryTermsFiltered">Filtered query terms</param>
+            <param name="knowledgeBaseLanguage">Language of Knowledge base</param>
+            <param name="rankerData">Ranker data</param>
+            <param name="averageWordScore">Average word score</param>
+            <param name="wordToWordSimilarity">wordToWordSimilarity</param>
+            <param name="removeStopword">True, if features are calculated after removing the stopwords</param>
+            <returns>Returns list of wordnet features</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.IRankerModel">
+            <summary>
+            Interface for all Ranker models.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.IRankerModel.FeaturesList">
+            <summary>
+            Get list of features used in the ranker.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.IRankerModel.RankerModelType">
+            <summary>
+            Method to get the type of ranker model in use.
+            </summary>
+            <returns>the type of ranker model in use</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.IRankerModel.GetScore(System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Double})">
+            <summary>
+            Method to get the final score for a QNA instance using ranker interface.
+            </summary>
+            <param name="featureValues">Feature Values</param>
+            <returns>The final score of ranker model.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.LinearEvaluator">
+            <summary>
+            The class used to store and evaluate a Linear model.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.LinearEvaluator.#ctor(System.Double,System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Double})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.LinearEvaluator"/> class.
+            </summary>
+            <param name="featureWeights">Weights for all features</param>
+            <param name="bias">Bias for linear weighted ranker</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.LinearEvaluator.Evaluate(System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Double})">
+            <summary>
+            Method used for running an instance through linear evaluator.
+            </summary>
+            <param name="featureValues">Feature values</param>
+            <returns>The output value of the linear evaluator.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.LinearWeightedRanker">
+            <summary>
+            Class used for representing a Linear Weighted Ranker.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.LinearWeightedRanker.#ctor(IniParser.Model.IniData)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.LinearWeightedRanker"/> class.
+            </summary>
+            <param name="rankerConfig">Ranker config</param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.LinearWeightedRanker.FeaturesList">
+            <summary>
+            Get list of features used in the ranker.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.LinearWeightedRanker.RankerModelType">
+            <summary>
+            Method to get the type of ranker model in use.
+            </summary>
+            <returns>the type of ranker model in use</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.LinearWeightedRanker.GetScore(System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Double})">
+            <summary>
+            Method to get the final score for a QNA instance using Linear Weighted Ranker.
+            </summary>
+            <param name="featureValues">Feature Values</param>
+            <returns>The final score of Linear Weighted Ranker.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.LogisticRegressionRanker">
+            <summary>
+            Class used for representing a Logistic Regression Ranker
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.LogisticRegressionRanker.#ctor(IniParser.Model.IniData)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.LogisticRegressionRanker"/> class.
+            </summary>
+            <param name="rankerConfig">Ranker config</param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.LogisticRegressionRanker.FeaturesList">
+            <summary>
+            Get list of features used in the ranker.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.LogisticRegressionRanker.RankerModelType">
+            <summary>
+            Method to get the type of ranker model in use.
+            </summary>
+            <returns>the type of ranker model in use</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.LogisticRegressionRanker.GetScore(System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Double})">
+            <summary>
+            Method to get the final score for a QNA instance using Logistic Regression ranker.
+            </summary>
+            <param name="featureValues">Feature Values</param>
+            <returns>The final score of Logistic Regression ranker.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.MultiturnBooster">
+            <summary>
+            The class used for Multiturn boosting
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.MultiturnBooster.childNormalizer">
+            <summary>
+            Child normalizer function
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.MultiturnBooster.grandChildNormalizer">
+            <summary>
+            GrandChild normalizer function
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.MultiturnBooster.nonChildNormalizer">
+            <summary>
+            Non-Child normalizer function
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.MultiturnBooster.#ctor(IniParser.Model.IniData)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.MultiturnBooster"/> class.
+            </summary>
+            <param name="rankerConfig">rankerConfig</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.MultiturnBooster.GetBoost(System.Double,System.Double)">
+            <summary>
+            GetBoost based on multiturn child levels.
+            </summary>
+            <param name="depthLevel">rank</param>
+            <param name="score">score</param>
+            <returns>boosted score</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.MultiturnDepthLevels">
+            <summary>
+            MultiturnDepthLevels
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.MultiturnDepthLevels.Child">
+            <summary>
+            Child
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.MultiturnDepthLevels.GrandChild">
+            <summary>
+            GrandChild
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.MultiturnDepthLevels.NonChild">
+            <summary>
+            NonChild
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.MultiturnDepthLevels.NoContext">
+            <summary>
+            No Context Present
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.LineTransform">
+            <summary>
+            Class used for representing line transform.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.LineTransform.#ctor(IniParser.Model.KeyDataCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.LineTransform"/> class.
+            </summary>
+            <param name="lineTransformConfig">Ranker Path for config for boosted trees.</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.LineTransform.Transform(System.Double)">
+            <summary>
+            Method to get the transformed value given an input value.
+            </summary>
+            <param name="xScore">input value</param>
+            <returns>Linear transformed value if it falls in a range</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Normalizer">
+            <summary>
+            Class used for representing a Normalizer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Normalizer.#ctor(IniParser.Model.IniData,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Normalizer"/> class.
+            </summary>
+            <param name="rankerConfig">Ranker config</param>
+            <param name="normalizerIdentifier">normalizerIdentifier</param>
+            <param name="transformPrefix">transformPrefix</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Normalizer.NormalizeScore(System.Double)">
+            <summary>
+            Method to normalize ranker's score
+            </summary>
+            <param name="rankerScore">ranker Raw Score</param>
+            <returns>Normalized score</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys">
+            <summary>
+            Class used for representing a boosted tree ranker.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.RankerSettings">
+            <summary>
+            Ranker settings. (Language and fuzzy search flag)
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.RankerModelType">
+            <summary>
+            Ranker Model type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.TreeEnsemble">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.LogisticRegression">
+            <summary>
+            Constant in Logistic Regression config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.Bias">
+            <summary>
+            Bias for Logistic Regression
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.Weight">
+            <summary>
+            Weight for linear and logistic regression
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.LinearWeighted">
+            <summary>
+            Constant in LinearWeighted config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.InputPrefix">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.EvaluatorCount">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.InputCount">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.InputName">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.EvaluatorPrefix">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.InternalNodesCount">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.SplitFeatures">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.LeftChildren">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.RightChildren">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.Thresholds">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.Outputs">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.SplitFeaturePrefix">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.Normalizer">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.NumOfTransforms">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.MinClipValue">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.MaxClipValue">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.XAxisStartingRange">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.XAxisEndingRange">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.YAxisStartingRange">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.YAxisEndingRange">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.SlopeOfLine">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.InterceptOfLine">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.TransformPrefix">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.ChildBoosterConfig">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.ChildBoosterTransformPrefix">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.GrandChildBoosterConfig">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.GrandChildBoosterTransformPrefix">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.NonChildBoosterConfig">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerConfigKeys.NonChildTransformPrefix">
+            <summary>
+            Constant in Boosted Tree config file.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.BoostedTreeRanker">
+            <summary>
+            Class used for representing a boosted tree ranker.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.BoostedTreeRanker.#ctor(IniParser.Model.IniData)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.BoostedTreeRanker"/> class.
+            </summary>
+            <param name="rankerConfig">Ranker config</param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.BoostedTreeRanker.FeaturesList">
+            <summary>
+            Get list of features used in the ranker.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.BoostedTreeRanker.RankerModelType">
+            <summary>
+            Method to get the type of ranker model in use.
+            </summary>
+            <returns>the type of ranker model in use</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.BoostedTreeRanker.GetScore(System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Double})">
+            <summary>
+            Method to get the final score for a QNA instance using boosted tree ranker.
+            </summary>
+            <param name="featureValues">Feature Values</param>
+            <returns>The final score of boosted tree ranker.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeEvaluator">
+            <summary>
+            The class used to store and evaluate a single decision tree.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeEvaluator.#ctor(IniParser.Model.KeyDataCollection,System.Collections.Generic.Dictionary{System.Int32,Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeEvaluator"/> class.
+            </summary>
+            <param name="treeEvaluatorConfig">Ranker config of a single decision tree</param>
+            <param name="idToFeatureMap">Input Id to feature name mapping</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeEvaluator.Evaluate(System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Double})">
+            <summary>
+            Method used for running an instance through the decision tree.
+            </summary>
+            <param name="featureValues">Feature values</param>
+            <returns>The output value of the decision tree.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeNode">
+            <summary>
+            The class representing a single node of decision tree.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeNode.#ctor(System.Double,Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeNode"/> class.
+            Initializes a non-leaf node.
+            </summary>
+            <param name="splitThreshold">ThresholdSplit Value for non leaf and output for leaf node.</param>
+            <param name="splitFeature">Feature considered for the split for a non-leaf node.</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeNode.#ctor(System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeNode"/> class.
+            Initializes a leaf node.
+            </summary>
+            <param name="output">ThresholdSplit Value for non leaf and output for leaf node.</param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeNode.IsLeaf">
+            <summary>
+            To denote whether the node is a leaf node or not.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeNode.Value">
+            <summary>
+            ThresholdSplit Value for non leaf and output for leaf node.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeNode.Left">
+            <summary>
+            Left node to a non-leaf node.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeNode.Right">
+            <summary>
+            Right node to a non-leaf node.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.TreeNode.SplitFeature">
+            <summary>
+            Feature considered for the split for a non-leaf node.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.FuzzyMatchUtils">
+            <summary>
+            Fuzzy match Utils.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.FuzzyMatchUtils.GetFuzzyQuery(System.String,Microsoft.QnAMaker.Common.RankerData.RankerData,Microsoft.QnAMaker.Common.Constants.Enums.Language)">
+            <summary>
+            Customise the query to accomodate fuzzy match in the Azure search.
+            </summary>
+            <param name="query">Input Query</param>
+            <param name="rankerData">ranker Data</param>
+            <param name="language">language</param>
+            <returns>the query with ~ placed at the end of each word</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.FuzzyMatchUtils.GetFuzzyWordMapping(System.String,System.Collections.Generic.List{System.String},System.Tuple{System.Int32,System.Int32})">
+            <summary>
+            Maps the fuzzy words with highLighted Words from Azure search.
+            </summary>
+            <param name="query">query with ~</param>
+            <param name="highLightedWords">highlighted words from azure search</param>
+            <param name="fuzzyMatchEditDistanceLimits">fuzzy match edit distance limits</param>
+            <returns>mapping from the misspelt word to highlighted Words</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.FuzzyMatchUtils.GetFuzzyWord(System.String,System.Collections.Generic.HashSet{System.String})">
+            <summary>
+            puts the ~ at the end of the word.
+            </summary>
+            <param name="word">inputs the word</param>
+            <param name="repositoryWords">repository of words</param>
+            <returns>string with ~</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.QnAFeatures">
+            <summary>
+            Aggregates all ranking feature vectors for QnA ranking.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.QnAFeatures.azureSearchFeature">
+            <summary>
+            Instance of Azure Search featurizer.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.QnAFeatures.wordnetFeature">
+            <summary>
+            Instance of WordNet featurizer.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.QnAFeatures.tfidfFeature">
+            <summary>
+            Instance of TFIDF featurizer.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.QnAFeatures.tfidfLocalFeature">
+            <summary>
+            Instance of TFIDFLocal featurizer.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.QnAFeatures.dssmFeature">
+            <summary>
+            Instance of DSSM featurizer.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.QnAFeatures.contextualFeature">
+            <summary>
+            Instance of DSSM featurizer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.QnAFeatures.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.QnAFeatures"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.QnAFeatures.GetAllFeatureValues(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData,Microsoft.QnAMaker.Common.RankerData.RankerData,System.Collections.Generic.HashSet{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures})">
+            <summary>
+            Calls all the features from here and bundles them.
+            </summary>
+            <param name="queryData">Instance of QueryData containing user query, language, etc.</param>
+            <param name="rankerData">An instance of RankingData class.</param>
+            <param name="featuresList">Features list used in ranker</param>
+            <returns>Returns the feature vector.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject">
+            <summary>
+            The main ranker class used for reranking candidate QnAs.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.rankingFunctionChitChat">
+            <summary>
+            ChitChat Ranking function
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.chitChatnormalizer">
+            <summary>
+            ChitChat normalizer function
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.#ctor(Microsoft.QnAMaker.Common.RankerData.RankerData,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject"/> class.
+            </summary>
+            <param name="rankerData">Ranker Data Contains Common Objects</param>
+            <param name="rankerPath">Path to the ranker file</param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.RankerModelType">
+            <summary>
+            Ranker Model type. Only useful in case of V1.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.RankerType">
+            <summary>
+            Ranker type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.GetKBLanguage">
+            <summary>
+            returns the language of the ranker
+            </summary>
+            <returns>language of the ranker</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.IsFuzzySearchOn">
+            <summary>
+            returns true if fuzzy search is done for this ranker else false
+            </summary>
+            <returns>boolean value of fuzzySearchFlag Variable</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.GetFuzzyMatchEditDistanceValues">
+            <summary>
+            returns the limits of edit distance values for the fuzzy match
+            </summary>
+            <returns>tuple of edit distance values for the fuzzy match</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.RankQnA(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData,System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Collections.Generic.Dictionary{System.Int32,System.Double}}@)">
+            <summary>
+            Takes the  query, List of Question and Answers  as input.
+            Extracts the features from the questions and Answers as well as from the query.
+            For Each QnA assigns the score using these Features.
+            </summary>
+            <param name="queryData">Instance of QueryData containing user query, language, etc.</param>
+            <param name="allQnAsfeatureValues">All Qnas scores per feature.</param>
+            <returns>Returns a ranked list of candidate QnAs with their rank scores.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.GetFeatureData(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData)">
+            <summary>
+            Takes the  query, List of Question and Answers  as input.
+            Extracts the features from the questions and Answers as well as from the query.
+            </summary>
+            <param name="queryData">Instance of QueryData containing user query, language, etc.</param>
+            <returns>Returns all the feature values of candidate QnAs.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.GetRankedCandidates(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData,System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Collections.Generic.Dictionary{System.Int32,System.Double}},System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA})">
+            <summary>
+            Takes the  query, List of Question,Answers and all generated features as input.
+            For Each QnA assigns the score using these Features.
+            </summary>
+            <param name="queryData">Instance of QueryData containing user query, language, etc.</param>
+            <param name="allFeatureValues">Generated feature values for all the answers</param>
+            <param name="candidateQnAList">Raw candidate list</param>
+            <returns>Returns all the feature values of candidate QnAs.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.FilterRankedQnAs(System.Int32,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA},System.Double)">
+            <summary>
+            Takes the  query, rankedAnswers  as input.
+            Filters the Answers based on count and threshold.
+            </summary>
+            <param name="topN">TopN value for filter</param>
+            <param name="rankedQnAList">Ranked answers for the given query</param>
+            <param name="qnaRankScoreThreshold">Threshold. Useful for AUC calculation because all results are needed.</param>
+            <returns>Returns a ranked and filtered list of candidate QnAs with their rank scores.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.GetRankerLanguage">
+            <summary>
+            Gets ranker language
+            </summary>
+            <returns>Ranker Language</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.GetRawQueryDataEditorialCheck(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData)">
+            <summary>
+            Checks for Editorial Match With Raw Query Data
+            </summary>
+            <param name="queryData">query data which has query and candidate qna</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.AggregateScore(System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Collections.Generic.Dictionary{System.Int32,System.Double}},System.Collections.Generic.List{System.Int32},System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Double})">
+            <summary>
+            Takes all the featureValues each QnAId.
+            Computes the final score using the PREDEFINED weights (linear model).
+            </summary>
+            <param name="allFeatureValues">Output of the QnAFeatures.GetAllFeatures.</param>
+            <param name="qnaIds">List of the QnAIds.</param>
+            <param name = "featureWeights">feature Weights</param>
+            <returns> Returns a dictionary of QnAId and ranking scores.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerObject.AggregateScoreV1(System.Collections.Generic.Dictionary{Microsoft.QnAMaker.Common.Constants.Enums.QnARankingFeatures,System.Collections.Generic.Dictionary{System.Int32,System.Double}},System.Collections.Generic.List{System.Int32},Microsoft.CognitiveServices.QnAMaker.QnARanking.IRankerModel)">
+            <summary>
+            Takes all the featureValues each QnAId.
+            Computes the final score using the PREDEFINED weights (linear model).
+            </summary>
+            <param name="allFeatureValues">Output of the QnAFeatures.GetAllFeatures.</param>
+            <param name="qnaIds">List of the QnAIds.</param>
+            <param name = "rankingFunction">Ranking Function</param>
+            <returns> Returns a dictionary of QnAId and ranking scores.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Ranker">
+            <summary>
+            The main ranker class used for reranking candidate QnAs.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.Ranker.rankerData">
+            <summary>
+            Ranking data
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Ranker.#ctor(Microsoft.QnAMaker.Common.RankerData.RankerData,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Ranker"/> class.
+            </summary>
+            <param name="rankerData">Ranker Data Contains Common Objects</param>
+            <param name="rankerPath">Path to the ranker file</param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Ranker.CurrentRankerVersion">
+            <summary>
+            Current Ranker Version
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Ranker.RankerModelType">
+            <summary>
+            Ranker Model type. Only useful in case of V1.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Ranker.GetKBLanguage">
+            <summary>
+            returns the language of the ranker
+            </summary>
+            <returns>language of the ranker</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Ranker.IsFuzzySearchOn">
+            <summary>
+            returns true if fuzzy search is done for this ranker else false
+            </summary>
+            <returns>boolean value of fuzzySearchFlag Variable</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Ranker.GetFuzzyMatchEditDistanceValues">
+            <summary>
+            returns the  fuzzy match edit distance values
+            </summary>
+            <returns>the tuple of fuzzy match edit distance values</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Ranker.GetRanker(System.String,Microsoft.QnAMaker.Common.Constants.Enums.RankerTypes)">
+            <summary>
+            Gets Ranker Version
+            </summary>
+            <param name="rankerVersionOverride">rankerVersionOverride</param>
+            <param name="rankerType">rankerType</param>
+            <returns>Ranker version</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Ranker.GetRankerVersion(System.String)">
+            <summary>
+            Gets Ranker Version
+            </summary>
+            <param name="rankerVersionOverride">rankerVersionOverride</param>
+            <returns>Ranker version</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerModelFactory">
+            <summary>
+            The Factory class to create Ranker Models.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.RankerModelFactory.CreateRankerModel(IniParser.Model.IniData)">
+            <summary>
+            Method to create Ranker Model of the type based on config.
+            </summary>
+            <param name="rankerConfigData">Feature Values</param>
+            <returns>The ranker model of desired type</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData">
+            <summary>
+            The query for QnA Ranking over Azure Search.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData.#ctor(System.String,System.Int32,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.Double},System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData"/> class.
+            Constructs the input query for QnA ranking.
+            </summary>
+            <param name="queryText">The raw query text as entered by user.</param>
+            <param name="topN">The maximum number of results desired in the output.</param>
+            <param name="candidateQnAList">The input list of candidate QnAs along with metadata retrieved from Azure Search.</param>
+            <param name="fuzzyWordMapping">fuzzy word mapping</param>
+            <param name="idfValues">idf values </param>
+            <param name="scoreThreshold">scoreThreshold</param>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData.QueryText">
+            <summary>
+            Gets or sets the raw query text as entered by user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData.KnowledgeBaseLanguage">
+            <summary>
+            Gets or sets the language of the knowledge base.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData.TopN">
+            <summary>
+            Gets or sets the maximum number of results desired in the output.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData.CandidateQnAList">
+            <summary>
+            Gets or sets the input list of candidate QnAs along with metadata retrieved from Azure Search.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData.FuzzyWordMapping">
+            <summary>
+            Gets the input the dictionary of Word Mapping derieved from Azure Search.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData.IdfValues">
+            <summary>
+            values of the idf
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData.QueryTFConstant">
+            <summary>
+            Query Term frequency Constant in TFIDF.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData.ScoreThreshold">
+            <summary>
+            Threshold for answers based on scores.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput">
+            <summary>
+            Features calculated using wordnet
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput.WordnetSimilarityScore">
+            <summary>
+            WordnetSimilarity Score
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput.WordnetQuestionSimilarityScore">
+            <summary>
+            WordnetQuestionSimilarity Score
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput.WordnetAnswerSimilarityScore">
+            <summary>
+            WordnetAnswerSimilarity Score
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput.WordnetSuppressionScore">
+            <summary>
+            WordnetSuppression Score
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput.WordnetQueryWordsCount">
+            <summary>
+            Wordnet Query Words Count
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput.WordnetQueryStopWordsCount">
+            <summary>
+            Wordnet Query Stop Words count
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput.WordnetQueryIDF">
+            <summary>
+            Wordnet Total Query IDF
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput.WordnetQuestionIDF">
+            <summary>
+            Wordnet MatchingQuestion IDF
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput.WordnetQueryToQuestionSimilarity">
+            <summary>
+            WordnetQueryToQuestionSimilarity
+            </summary>
+        </member>
+        <member name="P:Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.WordnetFeaturesOutput.WordnetQuestionToQuerySimilarity">
+            <summary>
+            WordnetQuestionToQuerySimilarity
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.SynonymsUtils">
+            <summary>
+            Synonym Utilities
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.SynonymsUtils.CanonicalizeQueryData(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            converts the query data int
+            </summary>
+            <param name="queryData">query data </param>
+            <param name="synonymsMap">synonyms </param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.SynonymsUtils.PhraseReplacementInQuery(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Adding quotes to the  synonyms which are phrases i.e, contains spaces to be recognized by Azure Search.
+            </summary>
+            <param name="query">Query</param>
+            <param name="synonyms">synonyms</param>
+            <returns>the query by adding quotes to the synonyms which are phrases</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.ChitchatRankerConfigs">
+            <summary>
+            Class used for representing a boosted tree ranker.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.ChitchatRankerConfigs.ChitChatFeatureWeights">
+            <summary>
+            Constant in Chitchat config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.ChitchatRankerConfigs.ChitChatNormalizer">
+            <summary>
+            Constant in Chitchat config file.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CognitiveServices.QnAMaker.QnARanking.ChitchatRankerConfigs.ChitChatTransform">
+            <summary>
+            Constant in Chitchat config file.
+            </summary>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.QnAUtils">
+            <summary>
+            Utils required for the Question Answers in the Query Data
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.QnAUtils.QueryEditorialQuestionsCheck(System.String,System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA},System.Collections.Generic.HashSet{System.String},System.Double)">
+            <summary>
+            Checks whether the Query is editorial Question
+            </summary>
+            <param name="query">
+            Query
+            </param>
+            <param name="candidateQnaList">
+            CandidateQnA List
+            </param>
+            <param name="stopWords">
+            The stop Words.
+            </param>
+            <param name="reduceScore">
+            reduce the score for second time editorial check
+            </param>
+            <returns>
+            canidateQnA
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.QnAUtils.LinearCombination(System.Collections.Generic.Dictionary{System.Int32,System.Double},System.Collections.Generic.Dictionary{System.Int32,System.Double},System.Double)">
+            <summary>
+            Linear Combination of Two Dictionaries
+            </summary>
+            <param name="dict1">Dictionary 1</param>
+            <param name="dict2">Dictionary 2</param>
+            <param name="alpha">Real value between 0 and 1</param>
+            <returns>outputs dictionary where the values are alpha*Value1 + (1-alpha)*Value2</returns>
+            <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">when the alpha value is not between 0 and 1</exception>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.QnAUtils.AdditionOfDictionaries(System.Collections.Generic.Dictionary{System.Int32,System.Double},System.Collections.Generic.Dictionary{System.Int32,System.Double})">
+            <summary>
+            Addition of two dictionaries
+            </summary>
+            <param name="dict1">
+            The dict 1.
+            </param>
+            <param name="dict2">
+            The dict 2.
+            </param>
+            <returns>
+            Outputs the dictionary with keys and values equal to the sum of both the dictionaries
+            </returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.QnAUtils.ScalarMultiplication(System.Double,System.Collections.Generic.Dictionary{System.Int32,System.Double})">
+            <summary>
+            Multiplication of the values of the dictionary by  a real value
+            </summary>
+            <param name="alpha">real valued number</param>
+            <param name="dict">Dictionary</param>
+            <returns>outputs the dictionary in which the values are scaled by alpha</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.RankerUtils">
+            <summary>
+            Utilities containing helper functions for ranking.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.RankerUtils.IsValidInput(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData)">
+            <summary>
+            validating the input of the ReRanker
+            </summary>
+            <param name="queryData">Instance of QueryData class</param>
+            <returns>A boolean of the validation output.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.RankerUtils.GetRankerUri(System.String,Microsoft.QnAMaker.Common.Constants.Enums.RankerVersions,Microsoft.QnAMaker.Common.Constants.Enums.RankerTypes)">
+            <summary>
+            Get appended Ranker Uri.
+            </summary>
+            <param name="rankerURI">Old ranker Uri</param>
+            <param name="rankerVersion">rankerVersion</param>
+            <param name="rankerType">rankerType</param>
+            <returns>New Ranker Uri</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.RankerUtils.IsCandidateChitChat(Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA)">
+            <summary>
+            Check and returns true if candidate is chitchat
+            </summary>
+            <param name="qna">Candidate qna</param>
+            <returns>True, if chitchat</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.RankerUtils.IsValidQuery(System.String)">
+            <summary>
+            Empty string is not a valid string for ReRanker
+            </summary>
+            <param name="query">The query to validate.</param>
+            <returns>A boolean output of the validation.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.RankerUtils.IsValidQnAList(System.Collections.Generic.List{Microsoft.QnAMaker.Common.Models.Entities.CandidateQnA})">
+            <summary>
+            Validatea the list of candidate QnAs.
+            </summary>
+            <param name="qnaList">List of candidate QnAs.</param>
+            <returns>A boolean validation output.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.TextUtils">
+            <summary>
+            Utilities containing helper functions for text operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.TextUtils.CleanUpQueryData(Microsoft.CognitiveServices.QnAMaker.QnARanking.Schema.QueryData)">
+            <summary>
+            cleaning of the elements of QueryData.
+            </summary>
+            <param name="queryData">Query Data</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.TextUtils.GetTerms(System.String)">
+            <summary>
+            Used to tokenize the english sentence.
+            </summary>
+            <param name="str">The string to parse.</param>
+            <returns>The array of terms.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.TextUtils.CleanUpString(System.String)">
+            <summary>
+            Cleans up string.
+            </summary>
+            <param name="str">The input string.</param>
+            <returns>The cleaned up string.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.TextUtils.CleanHtmlCharacters(System.String)">
+            <summary>
+            Cleans up html characters in string.
+            </summary>
+            <param name="str">The input string.</param>
+            <returns>The cleaned up string.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.TextUtils.CleanInvalidXmlCharacters(System.String)">
+            <summary>
+            Cleans up xml characters in string.
+            </summary>
+            <param name="str">The input string.</param>
+            <returns>The cleaned up string.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.TextUtils.EscapeString(System.String)">
+            <summary>
+            Escapes new line characters.
+            </summary>
+            <param name="str">The input string.</param>
+            <returns>The escaped string.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.TextUtils.RemoveDiacritics(System.String)">
+            <summary>
+            Removes diacritics from input string.
+            </summary>
+            <param name="text">The input string.</param>
+            <returns>The cleaned up string.</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.TextUtils.ReplaceUnicodeValues(System.String)">
+            <summary>
+            Replaces unicode values in a string with appropriate characters.
+            </summary>
+            <param name="text">The string.</param>
+            <returns>The string replaced with characters.</returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.WordnetHelper">
+            <summary>
+            Wordnet Class helper
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.WordnetHelper.GetQueryToQuerySimilarityScore(System.String,System.String,Microsoft.QnAMaker.Common.Constants.Enums.Language,Microsoft.QnAMaker.Common.RankerData.RankerData)">
+            <summary>
+            Get Query to query similarity score
+            </summary>
+            <param name="query1">Query 1</param>
+            <param name="query2">Query 2</param>
+            <param name="knowledgeBaseLanguage">Language</param>
+            <param name="rankerData">Ranker Data</param>
+            <returns>Returns similarity score</returns>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.QnARanking.Utilities.WordnetHelper.GetSentenceSimilarity(System.String[],System.Collections.Generic.Dictionary{System.String,System.Double},System.Double,System.String[],Microsoft.QnAMaker.Common.Utilities.WordnetData,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.Dictionary{System.String,System.Double}}@,System.Double@)">
+            <summary>
+            Sentence similarity
+            </summary>
+            <param name="queryTerms">Query terms</param>
+            <param name="queryTermsIdf">Query terms idf</param>
+            <param name="averageIdf">average idf</param>
+            <param name="candidateQuesTerms">candidate ques terms</param>
+            <param name="wordnetData">Wordnet data</param>
+            <param name="wordToWordSimilarity">Word to word similarity</param>
+            <param name="queryIdf">Query idf</param>
+            <returns>Return similarity score</returns>
+        </member>
+    </members>
+</doc>

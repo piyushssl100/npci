@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OSDataAccessLibrary</name>
+    </assembly>
+    <members>
+        <member name="T:OSDataAccessLibrary.ObjectStoreApi">
+            <summary>
+            Core ObjectStore API
+            </summary>
+        </member>
+        <member name="M:OSDataAccessLibrary.ObjectStoreApi.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:OSDataAccessLibrary.ObjectStoreApi"/> class.
+            </summary>
+        </member>
+        <member name="M:OSDataAccessLibrary.ObjectStoreApi.Delete(System.Collections.Generic.IEnumerable{QnAMaker.TestIdxV3.Key_1})">
+            <summary>
+            Deletes the specified keys
+            </summary>
+            <param name="keys">keys</param>
+            <returns>call passed or not</returns>
+        </member>
+        <member name="M:OSDataAccessLibrary.ObjectStoreApi.Write(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{QnAMaker.TestIdxV3.Key_1,QnAMaker.TestIdxV3.Value_1}})">
+            <summary>
+            Writes the give set of key/value pairs
+            </summary>
+            <param name="kvPairs">key value pairs</param>
+            <returns>call passed or not</returns>
+        </member>
+        <member name="M:OSDataAccessLibrary.ObjectStoreApi.Read(System.Collections.Generic.IEnumerable{QnAMaker.TestIdxV3.Key_1})">
+            <summary>
+            Read the give set of keys
+            </summary>
+            <param name="keys">keys</param>
+            <returns>values for given keys</returns>
+        </member>
+        <member name="M:OSDataAccessLibrary.ObjectStoreApi.RangeQuery(QnAMaker.TestIdxV3.Key_1)">
+            <summary>
+            Range query from given starting partition key
+            </summary>
+            <param name="startKey">start partition key</param>
+            <returns>set of key value pairs</returns>
+        </member>
+        <member name="M:OSDataAccessLibrary.ObjectStoreApi.IndexQuery(System.String,System.UInt32)">
+            <summary>
+            Index Query
+            </summary>
+            <param name="tlaQuery">tla query</param>
+            <param name="maximumNumberOfCandidates">max results</param>
+            <returns>retrieved results from oSearch</returns>
+        </member>
+        <member name="T:OSDataAccessLibrary.OSearchHelper">
+            <summary>
+            OSearchFieldAnnotations
+            </summary>
+        </member>
+        <member name="F:OSDataAccessLibrary.OSearchHelper.NamespaceName">
+            <summary>
+            TestTableName
+            </summary>
+        </member>
+        <member name="F:OSDataAccessLibrary.OSearchHelper.TestTableName">
+            <summary>
+            TestTableName
+            </summary>
+        </member>
+        <member name="F:OSDataAccessLibrary.OSearchHelper.BulkReadCoprocName">
+            <summary>
+            BulkReadCoprocName
+            </summary>
+        </member>
+        <member name="F:OSDataAccessLibrary.OSearchHelper.RangeQueryCoprocName">
+            <summary>
+            RangeQueryCoprocName
+            </summary>
+        </member>
+        <member name="M:OSDataAccessLibrary.OSearchHelper.GetOSearchAnnotationPrefix(System.String)">
+            <summary>
+            GetOSearchAnnotationPrefix
+            </summary>
+            <param name="fieldName">fieldName</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:OSDataAccessLibrary.OSearchHelper.GetTlaQuery(System.String,System.Boolean,System.Int32,System.String)">
+            <summary>
+            GetTlaQuery
+            </summary>
+            <param name="query">query</param>
+            <param name="isTest">isTest</param>
+            <param name="relaxCount">relaxCount</param>
+            <param name="kbId">kbId</param>
+            <returns>string</returns>
+        </member>
+        <member name="T:OSDataAccessLibrary.QnAMakerOSearchResult">
+            <summary>
+            Abstract oSearch Result (decouple from objectstore client library for rest of the projects)
+            </summary>
+        </member>
+        <member name="P:OSDataAccessLibrary.QnAMakerOSearchResult.Key">
+            <summary>
+            Key
+            </summary>
+        </member>
+        <member name="P:OSDataAccessLibrary.QnAMakerOSearchResult.Value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:OSDataAccessLibrary.QnAMakerOSearchResult.ToCandidateQna">
+            <summary>
+            ToCandidateQna
+            </summary>
+            <returns> CandidateQna </returns>
+        </member>
+        <member name="T:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.OSearchQnaIndexClient">
+            <summary>
+            Qna Client Implementation for oSearch
+            </summary>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.OSearchQnaIndexClient.#ctor(Microsoft.CognitiveServices.QnAMaker.Runtime.Models.QnaRequestContext,Microsoft.QnAMaker.Common.Interfaces.ITelemetryClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.OSearchQnaIndexClient"/> class.
+            OSearchQnaIndexClient
+            </summary>
+            <param name="qnaRequestContext">qnaRequestContext</param>
+            <param name="telemetryClient">telemetryClient</param>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.OSearchQnaIndexClient.CreateKbAsync(System.String,Microsoft.QnAMaker.Common.Models.Runtime.DTOs.CreateKbRuntimeInput)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.OSearchQnaIndexClient.DownloadKbAsync(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.OSearchQnaIndexClient.UpdateKbAsync(System.String,Microsoft.QnAMaker.Common.Models.Runtime.DTOs.UpdateKbRuntimeInput)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.OSearchQnaIndexClient.DeleteKbAsync(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.OSearchQnaIndexClient.PublishKbAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.OSearchQnaIndexClient.SearchIndex(Microsoft.CognitiveServices.QnAMaker.Runtime.IndexClients.QnaIndexSearchRequest)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

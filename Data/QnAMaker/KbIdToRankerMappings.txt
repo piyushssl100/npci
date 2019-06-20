@@ -1,0 +1,1 @@
+809c74f7-5bf5-4654-b3d9-af891ac2509a	https://qnamakerstore.blob.core.windows.net/qnamakerdata/rankers/ranker-English.ini

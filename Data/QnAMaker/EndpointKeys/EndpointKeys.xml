@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EndpointKeysDTO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PrimaryEndpointKey>b06bf12d-a5c3-4023-a1d3-5b5255e8fea3</PrimaryEndpointKey>
+  <SecondaryEndpointKey>af797ef3-be5b-45da-812c-57832bb0fe31</SecondaryEndpointKey>
+</EndpointKeysDTO>
